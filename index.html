@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>IELTS Vocab Booster (Band 4.0 - 5.0)</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -36,6 +36,18 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
+    /* Loại bỏ độ trễ 300ms khi chạm trên màn hình điện thoại */
+    button, input, .card-flip, [role="button"] {
+      touch-action: manipulation;
+    }
+    /* Thanh cuộn ngang mượt mà cho menu điện thoại */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
     .card-flip {
       perspective: 1000px;
     }
@@ -55,187 +67,223 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white pb-6">
 
-  <!-- Top Navigation Header -->
-  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200 px-4 py-3 sm:px-6 shadow-sm">
-    <div class="max-w-4xl mx-auto flex items-center justify-between">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md">
-          <i class="fa-solid fa-graduation-cap text-lg"></i>
-        </div>
-        <div>
-          <h1 class="text-lg font-bold text-slate-900 leading-tight">IELTS Vocab Master</h1>
-          <p class="text-xs text-emerald-600 font-semibold tracking-wide">TARGET BAND 4.0 - 5.0 • 12 ESSENTIAL WORDS</p>
-        </div>
+  <!-- POPUP BẮT BUỘC ĐIỀN TÊN KHI VÀO TRANG -->
+  <div id="name-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm sm:max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-5 text-center">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-inner">
+        <i class="fa-solid fa-graduation-cap"></i>
       </div>
-      <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl text-xs font-semibold text-slate-600">
-        <button id="tab-flashcards" onclick="switchTab('flashcards')" class="px-3 py-1.5 rounded-lg transition-all bg-white text-emerald-700 shadow-sm">
+      <div>
+        <h3 class="text-xl font-extrabold text-slate-900">Chào mừng bạn!</h3>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
+          Vui lòng nhập <b>tên tiếng Anh</b> của bạn để hệ thống tự động lưu tiến độ và gửi điểm cho giáo viên:
+        </p>
+      </div>
+      <div class="space-y-3">
+        <input type="text" id="modal-name-input" placeholder="Ví dụ: Alex, Peter, Sarah..." onkeydown="if(event.key==='Enter')saveStudentName()" class="w-full px-4 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 outline-none text-base font-bold text-center text-slate-800 bg-slate-50 focus:bg-white transition shadow-xs">
+        <button onclick="saveStudentName()" class="w-full min-h-[48px] py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-sm transition shadow-md flex items-center justify-center gap-2">
+          <span>Bắt đầu học ngay</span> <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation Header tối ưu cho điện thoại -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200 px-3 py-2.5 sm:px-6 shadow-sm">
+    <div class="max-w-4xl mx-auto space-y-2">
+      <!-- Dòng tiêu đề và hồ sơ học sinh -->
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center space-x-2">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shrink-0">
+            <i class="fa-solid fa-book-open text-base"></i>
+          </div>
+          <div>
+            <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">IELTS Vocab Master</h1>
+            <p class="text-[10px] sm:text-xs text-emerald-600 font-semibold tracking-wide">COMPLETE IELTS BANDS 4.0 - 5.0</p>
+          </div>
+        </div>
+
+        <!-- Nút hiển thị / sửa tên học sinh -->
+        <button onclick="openNameModal()" class="min-h-[38px] px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition shadow-xs">
+          <i class="fa-solid fa-user-check text-emerald-600"></i>
+          <span id="header-student-name" class="max-w-[100px] sm:max-w-[140px] truncate">Học sinh</span>
+          <i class="fa-solid fa-pen text-[10px] text-emerald-500 ml-0.5"></i>
+        </button>
+      </div>
+
+      <!-- Thanh 5 Tab cuộn ngang (Horizontal Scroll) không bị vỡ layout trên mobile -->
+      <div class="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl text-xs font-semibold text-slate-600 overflow-x-auto no-scrollbar whitespace-nowrap">
+        <button id="tab-flashcards" onclick="switchTab('flashcards')" class="min-h-[36px] px-3.5 py-1.5 rounded-xl transition-all bg-white text-emerald-700 shadow-xs font-bold shrink-0">
           <i class="fa-solid fa-layer-group mr-1.5"></i>Flashcards
         </button>
-        <button id="tab-quiz" onclick="switchTab('quiz')" class="px-3 py-1.5 rounded-lg transition-all hover:text-slate-900">
+        <button id="tab-quiz" onclick="switchTab('quiz')" class="min-h-[36px] px-3.5 py-1.5 rounded-xl transition-all hover:text-slate-900 shrink-0">
           <i class="fa-solid fa-circle-question mr-1.5"></i>Luyện tập
         </button>
-        <button id="tab-match" onclick="switchTab('match')" class="px-3 py-1.5 rounded-lg transition-all hover:text-slate-900">
+        <button id="tab-match" onclick="switchTab('match')" class="min-h-[36px] px-3.5 py-1.5 rounded-xl transition-all hover:text-slate-900 shrink-0">
           <i class="fa-solid fa-puzzle-piece mr-1.5"></i>Nối Cụm
+        </button>
+        <button id="tab-fill" onclick="switchTab('fill')" class="min-h-[36px] px-3.5 py-1.5 rounded-xl transition-all hover:text-slate-900 shrink-0">
+          <i class="fa-solid fa-pen mr-1.5"></i>Điền từ
+        </button>
+        <button id="tab-order" onclick="switchTab('order')" class="min-h-[36px] px-3.5 py-1.5 rounded-xl transition-all hover:text-slate-900 shrink-0">
+          <i class="fa-solid fa-arrow-down-a-z mr-1.5"></i>Sắp xếp câu
         </button>
       </div>
     </div>
   </header>
 
-  <main class="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 space-y-6">
+  <main class="flex-1 max-w-4xl w-full mx-auto p-3.5 sm:p-6 space-y-5">
 
     <!-- Notification Toast Box -->
-    <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center space-x-3 text-sm transition-all duration-300 transform translate-y-2">
+    <div id="toast" class="hidden fixed bottom-6 right-4 sm:right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-xs sm:text-sm transition-all duration-300 transform translate-y-2">
       <i id="toast-icon" class="fa-solid fa-circle-info text-emerald-400"></i>
       <span id="toast-msg">Thông báo ở đây</span>
     </div>
 
-    <!-- VIEW 1: FLASHCARDS & GUIDED LEARNING -->
-    <section id="view-flashcards" class="space-y-6">
-      <div class="flex items-center justify-between text-sm bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+    <!-- VIEW 1: FLASHCARDS -->
+    <section id="view-flashcards" class="space-y-5">
+      <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Chọn Unit:</span>
+        <div class="flex gap-1.5">
+          <button id="fc-unit-all" onclick="filterFlashcardUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Tất cả (26)</button>
+          <button id="fc-unit-1" onclick="filterFlashcardUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Unit 1 (12)</button>
+          <button id="fc-unit-2" onclick="filterFlashcardUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Unit 2 (14)</button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-sm bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs">
         <div class="flex items-center space-x-2">
-          <span class="text-slate-500 font-medium">Từ số:</span>
-          <span id="fc-counter" class="text-emerald-700 font-bold text-base">1 / 12</span>
+          <span class="text-slate-500 font-medium text-xs sm:text-sm">Từ số:</span>
+          <span id="fc-counter" class="text-emerald-700 font-extrabold text-sm sm:text-base">1 / 26</span>
         </div>
         <div class="flex items-center space-x-2">
-          <button onclick="speakCurrentWord()" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition flex items-center font-medium text-xs">
+          <button onclick="speakCurrentWord()" class="min-h-[36px] px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 active:scale-95 transition flex items-center font-bold text-xs">
             <i class="fa-solid fa-volume-high mr-1.5"></i>Phát âm
           </button>
-          <button onclick="shuffleCards()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition text-xs font-medium">
-            <i class="fa-solid fa-shuffle mr-1"></i>Trộn từ
+          <button onclick="shuffleCards()" class="min-h-[36px] px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 active:scale-95 transition text-xs font-bold">
+            <i class="fa-solid fa-shuffle mr-1"></i>Trộn
           </button>
         </div>
       </div>
 
       <div class="card-flip w-full min-h-[380px] sm:min-h-[360px] cursor-pointer" onclick="toggleCardFlip()">
         <div id="flashcard-inner" class="card-inner relative w-full h-full min-h-[380px] sm:min-h-[360px]">
-          
-          <div class="card-front absolute inset-0 bg-white rounded-3xl p-6 sm:p-8 border-2 border-emerald-100 shadow-md flex flex-col justify-between">
+          <div class="card-front absolute inset-0 bg-white rounded-3xl p-5 sm:p-8 border-2 border-emerald-100 shadow-sm flex flex-col justify-between">
             <div class="flex justify-between items-start">
-              <span id="fc-pos" class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">
-                VERB
-              </span>
-              <span class="text-xs text-slate-400 flex items-center font-medium">
-                <i class="fa-solid fa-repeat mr-1"></i> Chạm để lật nghĩa
-              </span>
+              <span id="fc-pos" class="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">VERB</span>
+              <span class="text-xs text-slate-400 flex items-center font-medium"><i class="fa-solid fa-repeat mr-1"></i> Chạm để lật nghĩa</span>
             </div>
-
-            <div class="text-center my-auto py-4">
-              <h2 id="fc-word" class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-2">conclude</h2>
-              <p id="fc-phonetic" class="text-emerald-600 font-mono text-base font-semibold">/kənˈkluːd/</p>
-              <div class="mt-4 inline-flex items-center text-xs bg-slate-50 text-slate-600 px-3 py-1.5 rounded-full border border-slate-200">
+            <div class="text-center my-auto py-3">
+              <h2 id="fc-word" class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-1.5">conclude</h2>
+              <p id="fc-phonetic" class="text-emerald-600 font-mono text-sm sm:text-base font-semibold">/kənˈkluːd/</p>
+              <div class="mt-3.5 inline-flex items-center text-xs bg-slate-50 text-slate-600 px-3 py-1.5 rounded-full border border-slate-200">
                 <i class="fa-regular fa-lightbulb text-amber-500 mr-1.5"></i>
                 <span id="fc-quickhint">Thường xuất hiện trong mở bài/kết bài Writing & Reading</span>
               </div>
             </div>
-
-            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100">
-              <p class="text-xs uppercase font-bold text-slate-400 mb-1 tracking-wider">Collocation quan trọng:</p>
-              <p id="fc-collocation" class="text-sm font-semibold text-slate-800">to conclude that / in conclusion</p>
+            <div class="bg-slate-50 rounded-2xl p-3.5 sm:p-4 border border-slate-100">
+              <p class="text-[11px] uppercase font-bold text-slate-400 mb-0.5 tracking-wider">Collocation quan trọng:</p>
+              <p id="fc-collocation" class="text-xs sm:text-sm font-semibold text-slate-800">to conclude that / in conclusion</p>
             </div>
           </div>
-
-          <div class="card-back absolute inset-0 bg-gradient-to-br from-emerald-800 to-teal-900 text-white rounded-3xl p-6 sm:p-8 shadow-md flex flex-col justify-between">
+          <div class="card-back absolute inset-0 bg-gradient-to-br from-emerald-800 to-teal-900 text-white rounded-3xl p-5 sm:p-8 shadow-md flex flex-col justify-between">
             <div class="flex justify-between items-center text-emerald-200 text-xs">
               <span class="font-bold tracking-wider uppercase">Ý NGHĨA & CÁCH DÙNG BAND 4-5</span>
-              <span><i class="fa-solid fa-repeat mr-1"></i> Lật lại từ vựng</span>
+              <span><i class="fa-solid fa-repeat mr-1"></i> Lật lại</span>
             </div>
-
-            <div class="space-y-3 my-auto py-2">
+            <div class="space-y-2.5 my-auto py-1">
               <div>
-                <p class="text-xs uppercase text-emerald-300 font-bold">Nghĩa tiếng Việt:</p>
-                <p id="fc-meaning-vi" class="text-xl font-bold text-white">kết luận, đi đến kết thúc</p>
-                <p id="fc-meaning-en" class="text-sm text-emerald-100 font-light mt-0.5">To decide that something is true after considering all information</p>
+                <p class="text-[11px] uppercase text-emerald-300 font-bold">Nghĩa tiếng Việt:</p>
+                <p id="fc-meaning-vi" class="text-lg sm:text-xl font-bold text-white">kết luận, đi đến kết thúc</p>
+                <p id="fc-meaning-en" class="text-xs sm:text-sm text-emerald-100 font-light mt-0.5">To decide that something is true after considering all information</p>
               </div>
-
               <div class="bg-white/10 rounded-xl p-3 border border-white/10 backdrop-blur-xs">
-                <p class="text-xs uppercase font-bold text-emerald-300 mb-1">Ví dụ thực tế:</p>
-                <p id="fc-example" class="text-sm font-medium italic">"The researchers concluded that city life causes more stress."</p>
-                <p id="fc-example-vi" class="text-xs text-emerald-200 mt-1">Các nhà nghiên cứu kết luận rằng cuộc sống thành thị gây nhiều áp lực hơn.</p>
+                <p class="text-[11px] uppercase font-bold text-emerald-300 mb-0.5">Ví dụ thực tế:</p>
+                <p id="fc-example" class="text-xs sm:text-sm font-medium italic">"The researchers concluded that city life causes more stress."</p>
+                <p id="fc-example-vi" class="text-[11px] text-emerald-200 mt-1">Các nhà nghiên cứu kết luận rằng cuộc sống thành thị gây nhiều áp lực hơn.</p>
               </div>
-
-              <div class="bg-amber-400/20 rounded-xl p-3 border border-amber-300/30">
-                <p class="text-xs font-bold text-amber-200 flex items-center">
-                  <i class="fa-solid fa-star text-amber-300 mr-1.5"></i> Mẹo thi IELTS Band 4.5+:
-                </p>
-                <p id="fc-tip" class="text-xs text-white/90 mt-1">
-                  Dùng "In conclusion, ..." ở đầu đoạn kết của Writing Task 2 thay vì những cách dịch thô thiển.
-                </p>
+              <div class="bg-amber-400/20 rounded-xl p-2.5 border border-amber-300/30">
+                <p class="text-xs font-bold text-amber-200 flex items-center"><i class="fa-solid fa-star text-amber-300 mr-1.5"></i> Mẹo thi IELTS Band 4.5+:</p>
+                <p id="fc-tip" class="text-xs text-white/90 mt-0.5">Dùng "In conclusion, ..." ở đầu đoạn kết của Writing Task 2 thay vì những cách dịch thô thiển.</p>
               </div>
             </div>
-
-            <div class="text-center text-xs text-emerald-200 font-medium">
-              Chạm thẻ để quay lại mặt trước
-            </div>
+            <div class="text-center text-xs text-emerald-200 font-medium">Chạm thẻ để quay lại mặt trước</div>
           </div>
         </div>
       </div>
 
-      <div class="flex items-center justify-between gap-3 pt-2">
-        <button onclick="prevCard()" class="flex-1 py-3 px-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 active:scale-95 transition font-semibold text-slate-700 flex items-center justify-center shadow-xs">
-          <i class="fa-solid fa-arrow-left mr-2"></i> Từ trước
+      <div class="flex items-center justify-between gap-2.5 pt-1">
+        <button onclick="prevCard()" class="flex-1 min-h-[46px] py-2.5 px-3 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 active:scale-95 transition font-bold text-xs sm:text-sm text-slate-700 flex items-center justify-center shadow-xs">
+          <i class="fa-solid fa-arrow-left mr-1.5"></i> Từ trước
         </button>
-        <button onclick="toggleCardFlip()" class="px-5 py-3 rounded-2xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold transition active:scale-95 shadow-xs">
+        <button onclick="toggleCardFlip()" class="min-h-[46px] px-4 py-2.5 rounded-2xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold transition active:scale-95 shadow-xs">
           <i class="fa-solid fa-arrows-rotate"></i>
         </button>
-        <button onclick="nextCard()" class="flex-1 py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white active:scale-95 transition font-semibold flex items-center justify-center shadow-sm">
-          Từ kế tiếp <i class="fa-solid fa-arrow-right ml-2"></i>
+        <button onclick="nextCard()" class="flex-1 min-h-[46px] py-2.5 px-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white active:scale-95 transition font-bold text-xs sm:text-sm flex items-center justify-center shadow-xs">
+          Từ kế tiếp <i class="fa-solid fa-arrow-right ml-1.5"></i>
         </button>
       </div>
 
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs">
-        <h3 class="font-bold text-slate-900 text-base mb-3 flex items-center">
-          <i class="fa-solid fa-bookmark text-emerald-600 mr-2"></i> Danh mục tra cứu nhanh 12 từ
-        </h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5" id="mini-word-list"></div>
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-xs">
+        <h3 class="font-bold text-slate-900 text-sm sm:text-base mb-3 flex items-center"><i class="fa-solid fa-bookmark text-emerald-600 mr-2"></i> Danh mục từ vựng</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2" id="mini-word-list"></div>
       </div>
     </section>
 
-    <!-- VIEW 2: COLLOCATION MATCHING GAME -->
+    <!-- VIEW 2: COLLOCATION MATCHING -->
     <section id="view-match" class="hidden space-y-5">
-      <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+      <div class="bg-white p-4 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
           <div>
-            <h2 class="text-lg font-bold text-slate-900">Game Ghép Cụm Từ (Collocation Builder)</h2>
-            <p class="text-xs text-slate-500">Giúp học sinh band 4-5 tránh thói quen dịch từng từ vựng sang tiếng Việt.</p>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Game Ghép Cụm Từ (Collocation Builder)</h2>
+            <p class="text-xs text-slate-500">Chạm để ghép các cụm từ ăn điểm trong Speaking & Writing.</p>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">
-              Đã ghép: <span id="match-score">0</span> / 6
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <span class="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">
+              Đã ghép: <span id="match-score">0</span> / <span id="match-total">12</span>
             </span>
-            <button onclick="initMatchGame()" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700">
+            <button onclick="initMatchGame()" class="min-h-[36px] text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700">
               <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại
             </button>
           </div>
         </div>
 
-        <p class="text-xs text-slate-500 my-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span class="text-xs font-bold text-slate-600 ml-1">Chọn phần bài tập:</span>
+          <div class="flex gap-1.5">
+            <button id="match-unit-all" onclick="filterMatchUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Tất cả (12)</button>
+            <button id="match-unit-1" onclick="filterMatchUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 1 (6)</button>
+            <button id="match-unit-2" onclick="filterMatchUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (6)</button>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-500 bg-blue-50/70 p-3 rounded-xl border border-blue-100">
           <i class="fa-solid fa-circle-info text-blue-500 mr-1"></i> <strong>Hướng dẫn:</strong> Chạm vào 1 từ ở cột <b>Từ IELTS</b>, sau đó chạm vào cụm tương ứng ở cột <b>Ý nghĩa & Giới từ</b> để ghép đôi.
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="match-container">
-          <div class="space-y-2.5" id="match-col-a"></div>
-          <div class="space-y-2.5" id="match-col-b"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="match-container">
+          <div class="space-y-2" id="match-col-a"></div>
+          <div class="space-y-2" id="match-col-b"></div>
         </div>
       </div>
     </section>
 
     <!-- VIEW 3: GAP-FILL & MC QUIZ -->
-    <section id="view-quiz" class="hidden space-y-6">
-
-      <!-- Trường nhập tên tiếng Anh của học sinh -->
-      <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs">
-        <label for="student-name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
-          What's your English name?
-        </label>
-        <input type="text" id="student-name" placeholder="Ví dụ: Alex, Peter, Sarah..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-emerald-500 font-medium text-slate-800 bg-slate-50 focus:bg-white transition">
+    <section id="view-quiz" class="hidden space-y-5">
+      <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
+        <span class="text-xs font-bold text-slate-600 ml-1">Chọn Unit làm bài:</span>
+        <div class="flex gap-1.5">
+          <button id="quiz-unit-1" onclick="filterQuizUnit(1)" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (10)</button>
+          <button id="quiz-unit-2" onclick="filterQuizUnit(2)" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Unit 2 (10)</button>
+          <button id="quiz-unit-all" onclick="filterQuizUnit('all')" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Tất cả (20)</button>
+        </div>
       </div>
 
-      <!-- Quiz Progress Bar & Score -->
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3 shadow-xs">
+      <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-2.5 shadow-xs">
         <div class="w-full sm:w-1/2">
-          <div class="flex justify-between text-xs font-bold text-slate-600 mb-1.5">
+          <div class="flex justify-between text-xs font-bold text-slate-600 mb-1">
             <span>Tiến độ câu hỏi</span>
             <span id="quiz-progress-text">Câu 1/10</span>
           </div>
@@ -243,38 +291,24 @@
             <div id="quiz-progress-bar" class="bg-emerald-600 h-2.5 rounded-full transition-all duration-300 w-[10%]"></div>
           </div>
         </div>
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-3 self-end sm:self-auto">
           <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Điểm số:</span>
-          <span id="quiz-score-badge" class="px-3 py-1 rounded-xl bg-emerald-50 text-emerald-700 font-extrabold text-sm border border-emerald-200">
-            0 điểm
-          </span>
-          <button onclick="resetQuiz()" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition">
-            <i class="fa-solid fa-rotate"></i>
-          </button>
+          <span id="quiz-score-badge" class="px-3 py-1 rounded-xl bg-emerald-50 text-emerald-700 font-extrabold text-sm border border-emerald-200">0 điểm</span>
+          <button onclick="resetQuiz()" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition"><i class="fa-solid fa-rotate"></i></button>
         </div>
       </div>
 
-      <!-- Question Box -->
-      <div id="quiz-card" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+      <div id="quiz-card" class="bg-white p-4 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-5">
         <div class="flex justify-between items-center text-xs">
-          <span id="q-category" class="px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 font-bold uppercase tracking-wider">
-            Preposition / Giới từ
-          </span>
-          <span class="text-slate-400 font-medium">IELTS Practice Task</span>
+          <span id="q-category" class="px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 font-bold uppercase tracking-wider">Preposition / Giới từ</span>
+          <span id="q-unit-label" class="px-2 py-0.5 rounded bg-slate-100 text-slate-500 font-semibold">Unit 1</span>
         </div>
-
         <div>
-          <h3 id="q-sentence" class="text-lg sm:text-xl font-bold text-slate-900 leading-relaxed">
-            Fast food has a terrible influence _______ the health of young children.
-          </h3>
-          <p id="q-translation" class="text-xs sm:text-sm text-slate-500 mt-2 italic">
-            (Thức ăn nhanh có ảnh hưởng tồi tệ tới sức khỏe của trẻ nhỏ.)
-          </p>
+          <h3 id="q-sentence" class="text-base sm:text-xl font-bold text-slate-900 leading-relaxed">Sentence loading...</h3>
+          <p id="q-translation" class="text-xs sm:text-sm text-slate-500 mt-1.5 italic">Translation loading...</p>
         </div>
-
-        <div id="q-options" class="grid grid-cols-1 gap-3"></div>
-
-        <div id="q-feedback" class="hidden p-4 rounded-2xl border transition-all">
+        <div id="q-options" class="grid grid-cols-1 gap-2.5"></div>
+        <div id="q-feedback" class="hidden p-3.5 sm:p-4 rounded-2xl border transition-all">
           <div class="flex items-start space-x-3">
             <div id="feedback-icon" class="text-lg mt-0.5"></div>
             <div class="space-y-1">
@@ -282,64 +316,106 @@
               <p id="feedback-detail" class="text-xs leading-relaxed text-slate-600"></p>
             </div>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-200/60 flex justify-end">
-            <button id="next-q-btn" onclick="nextQuestion()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-xs">
+          <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex justify-end">
+            <button id="next-q-btn" onclick="nextQuestion()" class="min-h-[44px] px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-bold rounded-xl transition shadow-xs">
               Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Quiz Final Results View -->
-      <div id="quiz-result-box" class="hidden bg-white p-8 rounded-3xl border border-slate-200 text-center space-y-5 shadow-md">
-        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto">
-          <i class="fa-solid fa-award"></i>
-        </div>
+      <div id="quiz-result-box" class="hidden bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 text-center space-y-4 shadow-md">
+        <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-award"></i></div>
         <div>
-          <h3 class="text-2xl font-bold text-slate-900">Hoàn thành bài luyện tập!</h3>
-          <p class="text-slate-500 text-sm mt-1">Kết quả kiểm tra khả năng nhớ cụm và ngữ pháp của 12 từ vựng.</p>
+          <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Hoàn thành bài luyện tập!</h3>
+          <p class="text-slate-500 text-xs sm:text-sm mt-1" id="quiz-result-subtitle">Kết quả kiểm tra từ vựng.</p>
         </div>
-        <div class="py-4">
-          <div class="text-4xl font-extrabold text-emerald-600" id="final-score-display">8 / 10</div>
-          <p id="final-eval-text" class="text-xs text-slate-500 mt-2 font-medium">Rất tốt! Bạn đã nắm chắc hầu hết các giới từ và dạng từ.</p>
+        <div class="py-2">
+          <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600" id="final-score-display">0 / 10</div>
+          <p id="final-eval-text" class="text-xs text-slate-500 mt-2 font-medium">Đang đánh giá...</p>
         </div>
-
-        <!-- Khu vực nộp điểm về Google Sheets -->
-        <div class="max-w-sm mx-auto space-y-2 pt-2">
-          <button id="btn-submit-score" onclick="submitQuizResult()" class="w-full px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition shadow-sm flex items-center justify-center">
+        <div class="max-w-xs mx-auto space-y-2 pt-1">
+          <button id="btn-submit-score" onclick="submitQuizResult()" class="w-full min-h-[46px] px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs sm:text-sm transition shadow-sm flex items-center justify-center">
             <i class="fa-solid fa-paper-plane mr-2"></i> Gửi kết quả cho giáo viên
           </button>
           <p id="submission-status" class="text-xs font-medium text-slate-500 min-h-[18px]"></p>
         </div>
+        <div class="flex flex-col sm:flex-row gap-2.5 justify-center pt-2">
+          <button onclick="resetQuiz()" class="min-h-[44px] px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 font-bold text-xs sm:text-sm transition"><i class="fa-solid fa-rotate-right mr-1.5"></i> Làm lại lần nữa</button>
+          <button onclick="switchTab('flashcards')" class="min-h-[44px] px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 font-bold text-xs sm:text-sm transition"><i class="fa-solid fa-layer-group mr-1.5"></i> Xem lại Flashcards</button>
+        </div>
+      </div>
+    </section>
 
-        <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-          <button onclick="resetQuiz()" class="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm transition">
-            <i class="fa-solid fa-rotate-right mr-1.5"></i> Làm lại lần nữa
-          </button>
-          <button onclick="switchTab('flashcards')" class="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm transition">
-            <i class="fa-solid fa-layer-group mr-1.5"></i> Xem lại Flashcards
+    <!-- VIEW 4: ĐIỀN TỪ (GAP-FILL & WORD FORM) -->
+    <section id="view-fill" class="hidden space-y-5">
+      <div class="bg-white p-4 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Điền từ (Gap-fill & Word Form)</h2>
+            <p class="text-xs text-slate-500">Gõ từ còn thiếu - chú ý dạng từ, số ít/số nhiều và chính tả.</p>
+          </div>
+          <button onclick="resetFill()" class="min-h-[36px] text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 self-start sm:self-auto">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại
           </button>
         </div>
+
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span class="text-xs font-bold text-slate-600 ml-1">Chọn Unit:</span>
+          <div class="flex gap-1.5">
+            <button id="fill-unit-1" onclick="filterFillUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (6)</button>
+            <button id="fill-unit-2" onclick="filterFillUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (6)</button>
+            <button id="fill-unit-all" onclick="filterFillUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Tất cả (12)</button>
+          </div>
+        </div>
+
+        <div id="fill-box"></div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: SẮP XẾP CÂU (SENTENCE BUILDER) -->
+    <section id="view-order" class="hidden space-y-5">
+      <div class="bg-white p-4 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Sắp xếp câu (Sentence Builder)</h2>
+            <p class="text-xs text-slate-500">Chạm các từ theo đúng thứ tự để tạo câu hoàn chỉnh.</p>
+          </div>
+          <button onclick="resetOrder()" class="min-h-[36px] text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 self-start sm:self-auto">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span class="text-xs font-bold text-slate-600 ml-1">Chọn Unit:</span>
+          <div class="flex gap-1.5">
+            <button id="order-unit-1" onclick="filterOrderUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (4)</button>
+            <button id="order-unit-2" onclick="filterOrderUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (4)</button>
+            <button id="order-unit-all" onclick="filterOrderUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Tất cả (8)</button>
+          </div>
+        </div>
+
+        <div id="order-box"></div>
       </div>
     </section>
 
   </main>
 
-  <footer class="bg-white border-t border-slate-200 py-5 text-center text-xs text-slate-500 mt-auto">
-    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-      <span>Tài liệu ôn tập chuẩn bị cho IELTS Band 4.0 - 5.0 (Speaking & Writing)</span>
-      <span class="text-emerald-700 font-medium">Giáo viên có thể gửi trực tiếp link này cho học sinh</span>
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-[11px] sm:text-xs text-slate-500 mt-auto">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-1.5">
+      <span>Tài liệu ôn tập chuẩn bị cho IELTS Band 4.0 - 5.0 (Unit 1 & Unit 2)</span>
+      <span class="text-emerald-700 font-medium">Complete IELTS Bands 4-5</span>
     </div>
   </footer>
 
   <script>
-    // ==========================================
-    // DÁN LINK GOOGLE APPS SCRIPT CỦA BẠN VÀO ĐÂY:
-    // ==========================================
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrs1xFlJXE0jf3GqYeOTLpYYznhz8ZaMhnVNgxG-UYVFZzo9jQ8bNAlz2UpliRYJYb6w/exec";
 
-    const VOCAB_DATA = [
+    // 26 TỪ VỰNG KÈM NHÃN UNIT
+    const ALL_VOCAB_DATA = [
+      // UNIT 1
       {
+        unit: 1,
         word: "conclude",
         pos: "verb",
         phonetic: "/kənˈkluːd/",
@@ -352,6 +428,7 @@
         hint: "Động từ kết thúc/kết luận"
       },
       {
+        unit: 1,
         word: "crime",
         pos: "noun",
         phonetic: "/kraɪm/",
@@ -364,6 +441,7 @@
         hint: "Hành động vi phạm pháp luật"
       },
       {
+        unit: 1,
         word: "diverse",
         pos: "adjective",
         phonetic: "/daɪˈvɜːs/",
@@ -376,6 +454,7 @@
         hint: "Tính từ miêu tả sự phong phú, nhiều loại"
       },
       {
+        unit: 1,
         word: "impact",
         pos: "noun / verb",
         phonetic: "/ˈɪmpækt/",
@@ -388,6 +467,7 @@
         hint: "Luôn đi cùng giới từ ON"
       },
       {
+        unit: 1,
         word: "industrial",
         pos: "adjective",
         phonetic: "/ɪnˈdʌstriəl/",
@@ -400,6 +480,7 @@
         hint: "Tính từ bổ nghĩa cho khu vực/nhà máy"
       },
       {
+        unit: 1,
         word: "influence",
         pos: "noun / verb",
         phonetic: "/ˈɪnfluəns/",
@@ -412,6 +493,7 @@
         hint: "Thường đi kèm giới từ ON"
       },
       {
+        unit: 1,
         word: "lifestyle",
         pos: "noun",
         phonetic: "/ˈlaɪfstaɪl/",
@@ -424,6 +506,7 @@
         hint: "Cách một người sinh hoạt mỗi ngày"
       },
       {
+        unit: 1,
         word: "locals",
         pos: "noun (plural)",
         phonetic: "/ˈləʊklz/",
@@ -436,6 +519,7 @@
         hint: "Danh từ số nhiều chỉ cư dân tại chỗ"
       },
       {
+        unit: 1,
         word: "ranks",
         pos: "verb / noun",
         phonetic: "/ræŋks/",
@@ -448,6 +532,7 @@
         hint: "Vị trí trong danh sách hay bảng xếp hạng"
       },
       {
+        unit: 1,
         word: "reaction",
         pos: "noun",
         phonetic: "/riˈækʃn/",
@@ -460,6 +545,7 @@
         hint: "Phản hồi/phản ứng lại một hành động"
       },
       {
+        unit: 1,
         word: "reputation",
         pos: "noun",
         phonetic: "/ˌrepjuˈteɪʃn/",
@@ -472,6 +558,7 @@
         hint: "Tiếng tăm, sự tín nhiệm của mọi người"
       },
       {
+        unit: 1,
         word: "surround",
         pos: "verb",
         phonetic: "/səˈraʊnd/",
@@ -482,11 +569,217 @@
         exampleVi: "Ngôi làng yên bình của tôi được bao quanh bởi những cánh đồng lúa xanh ngát.",
         tip: "Trong Speaking Part 1 khi tả quê hương: Hãy dùng thể bị động 'My hometown is surrounded by...'.",
         hint: "Bao bọc tứ phía, thường dùng bị động BY"
+      },
+
+      // UNIT 2
+      {
+        unit: 2,
+        word: "ancient",
+        pos: "adjective",
+        phonetic: "/ˈeɪnʃənt/",
+        meaningVi: "cổ xưa, từ thời xa xưa",
+        meaningEn: "From a very long time ago in history.",
+        collocation: "ancient history / ancient buildings",
+        example: "Hoi An is famous for its ancient buildings and peaceful streets.",
+        exampleVi: "Hội An nổi tiếng với các công trình kiến trúc cổ kính và những con phố yên bình.",
+        tip: "Dùng thay thế từ very old khi miêu tả di tích hoặc lịch sử trong Speaking Part 1.",
+        hint: "Tính từ chỉ thời kỳ cổ đại, rất xưa"
+      },
+      {
+        unit: 2,
+        word: "account",
+        pos: "noun",
+        phonetic: "/əˈkaʊnt/",
+        meaningVi: "bản tường thuật, lời kể lại",
+        meaningEn: "A written or spoken description of something that has happened.",
+        collocation: "give an account of / detailed account",
+        example: "Marco Polo wrote a detailed account of his journey across Asia.",
+        exampleVi: "Marco Polo đã viết một bản tường thuật chi tiết về hành trình của ông qua châu Á.",
+        tip: "Đi kèm giới từ 'of' (an account of sth). Tránh nhầm với tài khoản cá nhân.",
+        hint: "Danh từ mang nghĩa bản tường thuật hoặc câu chuyện kể lại"
+      },
+      {
+        unit: 2,
+        word: "award",
+        pos: "verb / noun",
+        phonetic: "/əˈwɔːd/",
+        meaningVi: "trao thưởng, giải thưởng",
+        meaningEn: "To officially give someone something such as a prize or money.",
+        collocation: "be awarded a prize / award a scholarship",
+        example: "She was awarded a prestigious medal for her scientific achievements.",
+        exampleVi: "Cô ấy đã được trao một tấm huy chương danh giá vì những thành tựu khoa học.",
+        tip: "Hay dùng ở thể bị động: S + be awarded + Noun trong Speaking Part 2.",
+        hint: "Động từ trao giải thưởng chính thức"
+      },
+      {
+        unit: 2,
+        word: "combine",
+        pos: "verb",
+        phonetic: "/kəmˈbaɪn/",
+        meaningVi: "kết hợp",
+        meaningEn: "To join or mix two or more things together.",
+        collocation: "combine A with B",
+        example: "It is often difficult to combine a full-time job with family life.",
+        exampleVi: "Thường rất khó để kết hợp công việc toàn thời gian với đời sống gia đình.",
+        tip: "Bắt buộc đi kèm giới từ with (combine something with something).",
+        hint: "Động từ phối hợp hoặc trộn lẫn nhiều thứ"
+      },
+      {
+        unit: 2,
+        word: "commentary",
+        pos: "noun",
+        phonetic: "/ˈkɒməntri/",
+        meaningVi: "lời bình luận, tường thuật trực tiếp",
+        meaningEn: "A spoken description of an event on television or radio as it happens.",
+        collocation: "sports commentary / live commentary",
+        example: "We listened to the live commentary of the football match on the radio.",
+        exampleVi: "Chúng tôi lắng nghe phần bình luận trực tiếp trận bóng đá qua đài radio.",
+        tip: "Trọng âm rơi vào âm tiết đầu tiên (/ˈkɒməntri/).",
+        hint: "Danh từ chỉ bài bình luận trực tiếp thể thao hoặc sự kiện"
+      },
+      {
+        unit: 2,
+        word: "degree",
+        pos: "noun",
+        phonetic: "/dɪˈɡriː/",
+        meaningVi: "bằng cấp đại học",
+        meaningEn: "A qualification given for completing a university course.",
+        collocation: "university degree / hold a degree in",
+        example: "Having a university degree helps graduates secure well-paid jobs.",
+        exampleVi: "Có tấm bằng đại học giúp sinh viên tốt nghiệp có được công việc lương tốt.",
+        tip: "Dùng giới từ in khi nói về chuyên ngành: a degree in computer science.",
+        hint: "Bằng cấp tốt nghiệp đại học hoặc cao đẳng"
+      },
+      {
+        unit: 2,
+        word: "establish",
+        pos: "verb",
+        phonetic: "/ɪˈstæblɪʃ/",
+        meaningVi: "thiết lập, thành lập",
+        meaningEn: "To start or create an organization, system, or relationship.",
+        collocation: "establish a relationship / establish a school",
+        example: "The university was established in 1950 and has a great reputation.",
+        exampleVi: "Trường đại học được thành lập vào năm 1950 và có uy tín lớn.",
+        tip: "Dùng thay thế cho cụm từ đơn giản set up trong bài viết Writing Task 2.",
+        hint: "Động từ đồng nghĩa với thành lập hoặc tạo dựng"
+      },
+      {
+        unit: 2,
+        word: "eventually",
+        pos: "adverb",
+        phonetic: "/ɪˈventʃuəli/",
+        meaningVi: "cuối cùng thì, rốt cuộc",
+        meaningEn: "In the end, especially after a long time or a lot of effort.",
+        collocation: "eventually succeed / eventually arrive",
+        example: "They got lost on the trail but eventually found their campsite.",
+        exampleVi: "Họ bị lạc trên đường mòn nhưng cuối cùng cũng tìm thấy khu cắm trại.",
+        tip: "Dùng thay cho finally hoặc in the end để tăng tính mạch lạc cho Speaking Part 2.",
+        hint: "Trạng từ chỉ kết quả sau một thời gian dài"
+      },
+      {
+        unit: 2,
+        word: "expedition",
+        pos: "noun",
+        phonetic: "/ˌekspəˈdɪʃn/",
+        meaningVi: "cuộc thám hiểm",
+        meaningEn: "An organized journey made for a particular purpose such as exploration.",
+        collocation: "go on an expedition / lead an expedition",
+        example: "The scientist led an expedition to Antarctica to study penguins.",
+        exampleVi: "Nhà khoa học đã dẫn đầu một đoàn thám hiểm đến Nam Cực để nghiên cứu chim cánh cụt.",
+        tip: "Luôn đi kèm với cụm động từ go on an expedition.",
+        hint: "Chuyến đi thám hiểm có tổ chức và mục đích"
+      },
+      {
+        unit: 2,
+        word: "extensive",
+        pos: "adjective",
+        phonetic: "/ɪkˈstensɪv/",
+        meaningVi: "sâu rộng, bao quát, lớn",
+        meaningEn: "Covering a large area or having a great amount of knowledge/detail.",
+        collocation: "extensive knowledge / extensive research",
+        example: "He has extensive knowledge of foreign cultures from his travels.",
+        exampleVi: "Anh ấy có vốn hiểu biết sâu rộng về các nền văn hóa nước ngoài nhờ các chuyến đi.",
+        tip: "Cụm extensive knowledge/research là collocation band điểm cao cho chủ đề Education.",
+        hint: "Tính từ chỉ quy mô lớn hoặc kiến thức sâu rộng"
+      },
+      {
+        unit: 2,
+        word: "formal education",
+        pos: "noun phrase",
+        phonetic: "/ˈfɔːml ˌedʒuˈkeɪʃn/",
+        meaningVi: "giáo dục chính quy tại trường lớp",
+        meaningEn: "Education that occurs in an organized school, college, or university setting.",
+        collocation: "receive formal education / lack of formal education",
+        example: "Many inventors succeeded even though they lacked formal education.",
+        exampleVi: "Nhiều nhà sáng chế đã thành công dù họ thiếu đi sự giáo dục chính quy.",
+        tip: "Chủ đề Education trong Writing Task 2 rất hay dùng để so sánh với tự học.",
+        hint: "Việc học tập tại trường lớp chính thức"
+      },
+      {
+        unit: 2,
+        word: "interrupt",
+        pos: "verb",
+        phonetic: "/ˌɪntəˈrʌpt/",
+        meaningVi: "làm gián đoạn, ngắt lời",
+        meaningEn: "To stop someone speaking or stop an action for a short period.",
+        collocation: "interrupt someone / interrupt a conversation",
+        example: "It is rude to interrupt others while they are giving opinions.",
+        exampleVi: "Thật thô lỗ khi ngắt lời người khác khi họ đang phát biểu ý kiến.",
+        tip: "Là ngoại động từ dùng trực tiếp với tân ngữ: interrupt somebody (không dùng interrupt to sb).",
+        hint: "Hành động xen vào cắt ngang lời người khác"
+      },
+      {
+        unit: 2,
+        word: "regard as",
+        pos: "phrasal verb",
+        phonetic: "/rɪˈɡɑːd æz/",
+        meaningVi: "xem như, coi như là",
+        meaningEn: "To think of or consider someone or something in a particular way.",
+        collocation: "be regarded as / regard somebody as",
+        example: "Ha Long Bay is widely regarded as a natural wonder of the world.",
+        exampleVi: "Vịnh Hạ Long được nhiều người coi là một kỳ quan thiên nhiên của thế giới.",
+        tip: "Thường dùng dạng bị động be regarded as để giới thiệu nhận định khách quan trong Writing Task 2.",
+        hint: "Cụm động từ mang nghĩa đánh giá hoặc coi là"
+      },
+      {
+        unit: 2,
+        word: "skill",
+        pos: "noun",
+        phonetic: "/skɪl/",
+        meaningVi: "kỹ năng",
+        meaningEn: "The ability to do an activity or job well, especially because you have practiced it.",
+        collocation: "develop skills / practical skills",
+        example: "Teamwork is an essential skill that students must develop.",
+        exampleVi: "Làm việc nhóm là một kỹ năng thiết yếu mà học sinh cần phát triển.",
+        tip: "Là danh từ đếm được, thường xuất hiện ở số nhiều skills.",
+        hint: "Khả năng làm việc thành thạo nhờ rèn luyện"
       }
     ];
 
-    const QUIZ_QUESTIONS = [
+    // CỤM TỪ NỐI (MATCHING) KÈM NHÃN UNIT
+    const ALL_MATCH_DATA = [
+      // UNIT 1
+      { id: 1, unit: 1, word: "impact", target: "on the environment (tác động lên...)" },
+      { id: 2, unit: 1, word: "commit a", target: "crime (phạm tội)" },
+      { id: 3, unit: 1, word: "surrounded", target: "by green trees (được bao quanh bởi...)" },
+      { id: 4, unit: 1, word: "healthy", target: "lifestyle (lối sống lành mạnh)" },
+      { id: 5, unit: 1, word: "friendly", target: "locals (người dân bản xứ thân thiện)" },
+      { id: 6, unit: 1, word: "in", target: "conclusion (kết luận lại là...)" },
+
+      // UNIT 2
+      { id: 7, unit: 2, word: "regard as", target: "one of the greatest explorers (coi như là...)" },
+      { id: 8, unit: 2, word: "go on an", target: "expedition (tham gia cuộc thám hiểm)" },
+      { id: 9, unit: 2, word: "extensive", target: "knowledge of history (kiến thức sâu rộng)" },
+      { id: 10, unit: 2, word: "combine", target: "theory with practice (kết hợp lý thuyết với...)" },
+      { id: 11, unit: 2, word: "formal", target: "education in school (giáo dục chính quy)" },
+      { id: 12, unit: 2, word: "university", target: "degree in economics (bằng đại học)" }
+    ];
+
+    // CÂU HỎI TRẮC NGHIỆM ĐỤC LỖ KÈM NHÃN UNIT
+    const ALL_QUIZ_QUESTIONS = [
+      // UNIT 1
       {
+        unit: 1,
         category: "Preposition / Giới từ",
         sentence: "Social media has a huge impact _______ the sleep quality of teenagers.",
         translation: "Mạng xã hội có tác động rất lớn tới chất lượng giấc ngủ của thanh thiếu niên.",
@@ -495,6 +788,7 @@
         explanation: "'Impact' khi là danh từ luôn đi kèm với giới từ 'ON' (have an impact on something)."
       },
       {
+        unit: 1,
         category: "Collocation / Cụm từ",
         sentence: "Police are trying their best to reduce _______ in the inner city.",
         translation: "Cảnh sát đang cố gắng hết sức để giảm thiểu tội phạm ở khu vực nội thành.",
@@ -503,6 +797,7 @@
         explanation: "'Reduce crime' (giảm thiểu tội phạm) là cụm kết hợp từ tự nhiên và chuẩn xác trong chủ đề xã hội."
       },
       {
+        unit: 1,
         category: "Word Form / Từ loại",
         sentence: "They built a new _______ zone near the river, creating jobs for workers.",
         translation: "Họ xây một khu công nghiệp mới gần bờ sông, tạo việc làm cho công nhân.",
@@ -511,6 +806,7 @@
         explanation: "Trước danh từ 'zone' ta cần một TÍNH TỪ để bổ nghĩa. 'Industrial' là tính từ (thuộc về công nghiệp)."
       },
       {
+        unit: 1,
         category: "Preposition / Bị động",
         sentence: "The old castle is completely surrounded _______ tall pine trees.",
         translation: "Tòa lâu đài cổ hoàn toàn được bao quanh bởi những rặng thông cao vút.",
@@ -519,6 +815,7 @@
         explanation: "Cấu trúc bị động chuẩn xác là 'be surrounded BY something' (được bao quanh bởi cái gì)."
       },
       {
+        unit: 1,
         category: "Collocation / Lối nói tự nhiên",
         sentence: "The _______ were very warm and showed us the quickest way to the market.",
         translation: "Người dân địa phương rất nồng nhiệt và chỉ cho chúng tôi đường nhanh nhất ra chợ.",
@@ -527,6 +824,7 @@
         explanation: "'The locals' là danh từ số nhiều tự nhiên mang nghĩa 'người dân bản địa'."
       },
       {
+        unit: 1,
         category: "Preposition / Giới từ",
         sentence: "His angry _______ to the teacher's comment surprised everybody in class.",
         translation: "Phản ứng giận dữ của anh ấy trước lời nhận xét của giáo viên khiến cả lớp ngạc nhiên.",
@@ -535,6 +833,7 @@
         explanation: "Danh từ 'reaction' luôn đi cùng giới từ 'TO' khi nói về phản ứng đối với một sự việc nào đó."
       },
       {
+        unit: 1,
         category: "IELTS Writing Task 2",
         sentence: "_______ conclusion, governments must take stricter actions to protect forests.",
         translation: "Tóm lại, chính phủ cần có những biện pháp quyết liệt hơn để bảo vệ rừng.",
@@ -543,6 +842,7 @@
         explanation: "Cụm từ liên kết chuyển đoạn chuẩn trong kết bài IELTS là 'In conclusion,' (không dùng At/With)."
       },
       {
+        unit: 1,
         category: "Meaning in Context",
         sentence: "Eating more vegetables and walking daily will help you lead a healthier _______.",
         translation: "Ăn nhiều rau xanh và đi bộ mỗi ngày sẽ giúp bạn có một lối sống lành mạnh hơn.",
@@ -551,6 +851,7 @@
         explanation: "'Lead a healthy lifestyle' có nghĩa là duy trì một phong cách/lối sống lành mạnh."
       },
       {
+        unit: 1,
         category: "Collocation / Danh tiếng",
         sentence: "The restaurant gained a great _______ for serving delicious seafood.",
         translation: "Nhà hàng đã tạo dựng được tiếng tăm lớn nhờ phục vụ đồ hải sản tươi ngon.",
@@ -559,23 +860,259 @@
         explanation: "'Gain a reputation for...' mang nghĩa tạo dựng được tiếng tăm, uy tín về một khía cạnh nào đó."
       },
       {
+        unit: 1,
         category: "Writing Task 1 / Thứ hạng",
         sentence: "According to the chart, coffee _______ second among the country's main exports.",
         translation: "Theo biểu đồ, cà phê xếp thứ hai trong số các mặt hàng xuất khẩu chính của đất nước.",
         options: ["ranks", "concludes", "surrounds", "influences"],
         correct: 0,
         explanation: "'Rank second / rank first' được dùng để miêu tả vị trí thứ bậc trong bảng xếp hạng hoặc số liệu."
+      },
+
+      // UNIT 2
+      {
+        unit: 2,
+        category: "Collocation / Nhận định",
+        sentence: "Many historians _______ him as one of the greatest explorers of the 14th century.",
+        translation: "Nhiều nhà sử học coi ông như một trong những nhà thám hiểm vĩ đại nhất thế kỷ 14.",
+        options: ["regard", "consider", "believe", "comment"],
+        correct: 0,
+        explanation: "Cấu trúc 'regard someone as something' mang nghĩa xem ai đó như là cái gì."
+      },
+      {
+        unit: 2,
+        category: "Collocation / Chuyến đi",
+        sentence: "The research team decided to go on an _______ across the Pacific Ocean.",
+        translation: "Nhóm nghiên cứu quyết định tham gia một chuyến thám hiểm qua Thái Bình Dương.",
+        options: ["account", "expedition", "education", "commentary"],
+        correct: 1,
+        explanation: "Cụm từ chuẩn xác là 'go on an expedition' (đi thám hiểm)."
+      },
+      {
+        unit: 2,
+        category: "Collocation / Kiến thức",
+        sentence: "Our lecturer has _______ knowledge of ancient languages and traditions.",
+        translation: "Giảng viên của chúng tôi có kiến thức sâu rộng về các ngôn ngữ và truyền thống cổ xưa.",
+        options: ["ancient", "formal", "extensive", "eventual"],
+        correct: 2,
+        explanation: "Cụm 'extensive knowledge' mang nghĩa kiến thức sâu rộng, bao quát."
+      },
+      {
+        unit: 2,
+        category: "Collocation / Giáo dục",
+        sentence: "He became a successful software creator despite having no _______ education.",
+        translation: "Anh ấy đã trở thành một người làm phần mềm thành công dù không có học vấn chính quy.",
+        options: ["formal", "ancient", "commentary", "interrupted"],
+        correct: 0,
+        explanation: "'Formal education' chỉ nền giáo dục trường lớp bài bản, chính quy."
+      },
+      {
+        unit: 2,
+        category: "Meaning in Context / Hành động",
+        sentence: "It is considered impolite to _______ the teacher while she is explaining the grammar.",
+        translation: "Bị coi là bất lịch sự nếu ngắt lời giáo viên khi cô đang giải thích ngữ pháp.",
+        options: ["combine", "interrupt", "award", "establish"],
+        correct: 1,
+        explanation: "'Interrupt' là động từ chỉ hành động chen ngang, ngắt lời người khác."
+      },
+      {
+        unit: 2,
+        category: "Adverb / Tính mạch lạc",
+        sentence: "After walking for three hours under the rain, they _______ reached the ancient temple.",
+        translation: "Sau khi đi bộ ba tiếng đồng hồ dưới mưa, cuối cùng họ cũng đến được ngôi đền cổ.",
+        options: ["anciently", "extensively", "eventually", "formally"],
+        correct: 2,
+        explanation: "'Eventually' là trạng từ mang nghĩa rốt cuộc, cuối cùng thì (sau nhiều nỗ lực)."
+      },
+      {
+        unit: 2,
+        category: "Preposition / Giới từ",
+        sentence: "Students should learn how to combine academic study _______ regular physical exercise.",
+        translation: "Học sinh nên học cách kết hợp việc học thuật với rèn luyện thể chất thường xuyên.",
+        options: ["with", "for", "to", "on"],
+        correct: 0,
+        explanation: "Động từ 'combine' luôn đi cùng giới từ 'with' (combine A with B)."
+      },
+      {
+        unit: 2,
+        category: "Word Form / Bị động",
+        sentence: "The young scientist was _______ a prestigious scholarship for her excellent research.",
+        translation: "Nhà khoa học trẻ đã được trao một học bổng danh giá cho nghiên cứu xuất sắc của cô.",
+        options: ["awarding", "awarded", "awards", "award"],
+        correct: 1,
+        explanation: "Dạng bị động trong quá khứ đơn: 'was awarded' (được trao thưởng)."
+      },
+      {
+        unit: 2,
+        category: "Meaning in Context / Tường thuật",
+        sentence: "The old explorer gave a fascinating _______ of his life among desert tribes.",
+        translation: "Nhà thám hiểm già đã đưa ra một lời kể hấp dẫn về cuộc đời ông giữa các bộ tộc sa mạc.",
+        options: ["account", "degree", "skill", "interruption"],
+        correct: 0,
+        explanation: "'An account of something' là bản tường thuật, bài viết hoặc câu chuyện kể lại một sự việc."
+      },
+      {
+        unit: 2,
+        category: "Collocation / Bằng cấp",
+        sentence: "Nowadays, having a university _______ in technology provides many job advantages.",
+        translation: "Ngày nay, có bằng đại học ngành công nghệ mang lại nhiều lợi thế xin việc.",
+        options: ["degree", "commentary", "expedition", "account"],
+        correct: 0,
+        explanation: "Cụm 'university degree' là bằng cấp tốt nghiệp đại học."
       }
     ];
 
-    const MATCH_DATA = [
-      { id: 1, word: "impact", target: "on the environment (tác động lên...)" },
-      { id: 2, word: "commit a", target: "crime (phạm tội)" },
-      { id: 3, word: "surrounded", target: "by green trees (được bao quanh bởi...)" },
-      { id: 4, word: "healthy", target: "lifestyle (lối sống lành mạnh)" },
-      { id: 5, word: "friendly", target: "locals (người dân bản xứ thân thiện)" },
-      { id: 6, word: "in", target: "conclusion (kết luận lại là...)" }
+    // DỮ LIỆU ĐIỀN TỪ (GAP-FILL & WORD FORM)
+    const ALL_FILL_DATA = [
+      // UNIT 1
+      {
+        unit: 1,
+        s: "The new industrial zone had a negative _______ on the local river.",
+        vi: "Khu công nghiệp mới đã có tác động tiêu cực lên dòng sông địa phương.",
+        a: "impact",
+        h: "i _ _ _ _ _ (tác động, ảnh hưởng)"
+      },
+      {
+        unit: 1,
+        s: "The local police are working hard to reduce the _______ rate.",
+        vi: "Cảnh sát địa phương đang nỗ lực giảm tỷ lệ tội phạm.",
+        a: "crime",
+        h: "c _ _ _ _ (tội phạm, tệ nạn)"
+      },
+      {
+        unit: 1,
+        s: "Eating organic vegetables helps people maintain a healthy _______.",
+        vi: "Ăn rau hữu cơ giúp mọi người duy trì một lối sống lành mạnh.",
+        a: "lifestyle",
+        h: "l _ _ _ _ _ _ _ _ (lối sống, phong cách sống)"
+      },
+      {
+        unit: 1,
+        s: "The cultural _______ of the region attracts thousands of tourists. (diverse)",
+        vi: "Sự đa dạng văn hóa của khu vực thu hút hàng ngàn du khách.",
+        a: "diversity",
+        h: "Đổi 'diverse' thành DANH TỪ"
+      },
+      {
+        unit: 1,
+        s: "The rapid growth of heavy _______ caused air pollution in the city. (industrial)",
+        vi: "Sự phát triển nhanh của ngành công nghiệp nặng gây ô nhiễm không khí.",
+        a: "industry",
+        h: "Đổi 'industrial' thành DANH TỪ"
+      },
+      {
+        unit: 1,
+        s: "In _______, governments must invest more in public libraries. (conclude)",
+        vi: "Tóm lại, chính phủ cần đầu tư nhiều hơn vào các thư viện công cộng.",
+        a: "conclusion",
+        h: "Đổi 'conclude' thành DANH TỪ (cụm In ...)"
+      },
+
+      // UNIT 2
+      {
+        unit: 2,
+        s: "Hoi An is internationally famous for its _______ architecture and street lamps.",
+        vi: "Hội An nổi tiếng quốc tế bởi kiến trúc cổ xưa và đèn đường.",
+        a: "ancient",
+        h: "a _ _ _ _ _ _ (cổ xưa, từ thời xa xưa)"
+      },
+      {
+        unit: 2,
+        s: "The explorer wrote a fascinating _______ of his life among desert tribes.",
+        vi: "Nhà thám hiểm đã viết bản tường thuật hấp dẫn về đời ông giữa các bộ tộc.",
+        a: "account",
+        h: "a _ _ _ _ _ _ (bản tường thuật, lời kể lại)"
+      },
+      {
+        unit: 2,
+        s: "Students find it difficult to _______ part-time work with exam preparation.",
+        vi: "Học sinh thấy khó kết hợp công việc làm thêm với việc ôn thi.",
+        a: "combine",
+        h: "c _ _ _ _ _ _ (kết hợp, đi với with)"
+      },
+      {
+        unit: 2,
+        s: "The research university was _______ in 1950 by national scientists.",
+        vi: "Trường đại học nghiên cứu được thành lập vào năm 1950.",
+        a: "established",
+        h: "Dạng bị động quá khứ của 'establish' (được thành lập)"
+      },
+      {
+        unit: 2,
+        s: "He became a talented programmer despite lacking _______ education.",
+        vi: "Anh ấy trở thành lập trình viên tài năng dù không có học vấn chính quy.",
+        a: "formal",
+        h: "f _ _ _ _ _ (chính quy tại trường lớp)"
+      },
+      {
+        unit: 2,
+        s: "Our professor has _______ knowledge of Southeast Asian history.",
+        vi: "Giáo sư của chúng tôi có kiến thức sâu rộng về lịch sử Đông Nam Á.",
+        a: "extensive",
+        h: "e _ _ _ _ _ _ _ _ (sâu rộng, bao quát)"
+      }
     ];
+
+    // DỮ LIỆU SẮP XẾP CÂU (SENTENCE BUILDER)
+    const ALL_ORDER_DATA = [
+      // UNIT 1
+      {
+        unit: 1,
+        s: "Tourism can have a negative impact on the local environment.",
+        vi: "Du lịch có thể gây tác động tiêu cực đến môi trường địa phương."
+      },
+      {
+        unit: 1,
+        s: "My peaceful hometown is surrounded by green paddy fields.",
+        vi: "Quê hương yên bình của tôi được bao quanh bởi những cánh đồng lúa xanh."
+      },
+      {
+        unit: 1,
+        s: "Friendly locals showed us the quickest way to the market.",
+        vi: "Người dân địa phương thân thiện đã chỉ cho chúng tôi đường nhanh nhất ra chợ."
+      },
+      {
+        unit: 1,
+        s: "Vietnam ranks among the top exporters of rice in the world.",
+        vi: "Việt Nam xếp vào hàng ngũ các nước xuất khẩu gạo hàng đầu thế giới."
+      },
+
+      // UNIT 2
+      {
+        unit: 2,
+        s: "Many historians regard him as one of the greatest explorers.",
+        vi: "Nhiều nhà sử học coi ông như một trong những nhà thám hiểm vĩ đại nhất."
+      },
+      {
+        unit: 2,
+        s: "The research team decided to go on an expedition across the ocean.",
+        vi: "Nhóm nghiên cứu quyết định tham gia một chuyến thám hiểm qua đại dương."
+      },
+      {
+        unit: 2,
+        s: "Students should learn to combine academic study with regular exercise.",
+        vi: "Học sinh nên học cách kết hợp việc học thuật với rèn luyện thể chất."
+      },
+      {
+        unit: 2,
+        s: "Our professor has extensive knowledge of ancient languages and traditions.",
+        vi: "Giáo sư của chúng tôi có kiến thức sâu rộng về ngôn ngữ và truyền thống cổ xưa."
+      }
+    ];
+
+    // BIẾN TRẠNG THÁI HIỆN TẠI
+    let currentStudentName = "";
+    let currentFcUnit = 'all';
+    let currentMatchUnit = 'all';
+    let currentQuizUnit = 1;
+    let currentFillUnit = 1;
+    let currentOrderUnit = 1;
+
+    let filteredVocab = [...ALL_VOCAB_DATA];
+    let filteredMatch = [...ALL_MATCH_DATA];
+    let filteredQuiz = ALL_QUIZ_QUESTIONS.filter(q => q.unit === 1);
+    let filteredFill = ALL_FILL_DATA.filter(f => f.unit === 1);
+    let filteredOrder = ALL_ORDER_DATA.filter(o => o.unit === 1);
 
     let currentCardIndex = 0;
     let isFlipped = false;
@@ -585,12 +1122,59 @@
     let selectedColB = null;
     let matchedPairsCount = 0;
 
+    let fillIdx = 0, fillScore = 0, fillDone = false;
+    let orderIdx = 0, orderScore = 0, orderTokens = [], orderPicked = [], orderDone = false;
+
     window.onload = function() {
-      renderFlashcard();
-      renderMiniWordList();
-      initMatchGame();
-      renderQuizQuestion();
+      initStudentName();
+      filterFlashcardUnit('all');
+      filterMatchUnit('all');
+      filterQuizUnit(1);
+      filterFillUnit(1);
+      filterOrderUnit(1);
     };
+
+    // ==========================================
+    // QUẢN LÝ TÊN HỌC SINH & LOCALSTORAGE
+    // ==========================================
+    function initStudentName() {
+      const storedName = localStorage.getItem("ielts_student_name");
+      if (storedName && storedName.trim()) {
+        currentStudentName = storedName.trim();
+        updateStudentNameUI(currentStudentName);
+        document.getElementById("name-modal").classList.add("hidden");
+      } else {
+        openNameModal();
+      }
+    }
+
+    function openNameModal() {
+      const modal = document.getElementById("name-modal");
+      const inp = document.getElementById("modal-name-input");
+      inp.value = currentStudentName || "";
+      modal.classList.remove("hidden");
+      setTimeout(() => inp.focus(), 150);
+    }
+
+    function saveStudentName() {
+      const inp = document.getElementById("modal-name-input");
+      const val = inp.value.trim();
+      if (!val) {
+        showToast("Vui lòng nhập tên tiếng Anh của bạn!", false);
+        inp.focus();
+        return;
+      }
+      currentStudentName = val;
+      localStorage.setItem("ielts_student_name", val);
+      updateStudentNameUI(val);
+      document.getElementById("name-modal").classList.add("hidden");
+      showToast(`Chào ${val}! Bạn có thể bắt đầu làm bài.`, true);
+    }
+
+    function updateStudentNameUI(name) {
+      const headerName = document.getElementById("header-student-name");
+      if (headerName) headerName.textContent = name;
+    }
 
     function showToast(message, isSuccess = true) {
       const toast = document.getElementById("toast");
@@ -609,29 +1193,54 @@
     }
 
     function switchTab(tabId) {
-      const tabs = ['flashcards', 'quiz', 'match'];
+      const tabs = ['flashcards', 'quiz', 'match', 'fill', 'order'];
       tabs.forEach(t => {
         const view = document.getElementById(`view-${t}`);
         const btn = document.getElementById(`tab-${t}`);
         if (t === tabId) {
           view.classList.remove('hidden');
-          btn.className = "px-3 py-1.5 rounded-lg transition-all bg-white text-emerald-700 shadow-sm font-bold";
+          btn.className = "min-h-[36px] px-3.5 py-1.5 rounded-xl transition-all bg-white text-emerald-700 shadow-xs font-bold shrink-0";
+          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         } else {
           view.classList.add('hidden');
-          btn.className = "px-3 py-1.5 rounded-lg transition-all text-slate-600 hover:text-slate-900 font-semibold";
+          btn.className = "min-h-[36px] px-3.5 py-1.5 rounded-xl transition-all hover:text-slate-900 font-semibold shrink-0 text-slate-600";
         }
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // ==========================================
+    // LOGIC FLASHCARDS
+    // ==========================================
+    function filterFlashcardUnit(unit) {
+      currentFcUnit = unit;
+      ['all', 1, 2].forEach(u => {
+        const btn = document.getElementById(`fc-unit-${u}`);
+        if (u === unit) {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition";
+        } else {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
+        }
+      });
+
+      if (unit === 'all') {
+        filteredVocab = [...ALL_VOCAB_DATA];
+      } else {
+        filteredVocab = ALL_VOCAB_DATA.filter(v => v.unit === unit);
+      }
+      currentCardIndex = 0;
+      renderFlashcard();
+      renderMiniWordList();
+    }
+
     function renderFlashcard() {
-      const card = VOCAB_DATA[currentCardIndex];
+      const card = filteredVocab[currentCardIndex];
       const inner = document.getElementById("flashcard-inner");
       
       inner.classList.remove("flipped");
       isFlipped = false;
 
-      document.getElementById("fc-counter").textContent = `${currentCardIndex + 1} / ${VOCAB_DATA.length}`;
+      document.getElementById("fc-counter").textContent = `${currentCardIndex + 1} / ${filteredVocab.length}`;
       document.getElementById("fc-pos").textContent = card.pos;
       document.getElementById("fc-word").textContent = card.word;
       document.getElementById("fc-phonetic").textContent = card.phonetic;
@@ -658,17 +1267,17 @@
     }
 
     function nextCard() {
-      currentCardIndex = (currentCardIndex + 1) % VOCAB_DATA.length;
+      currentCardIndex = (currentCardIndex + 1) % filteredVocab.length;
       renderFlashcard();
     }
 
     function prevCard() {
-      currentCardIndex = (currentCardIndex - 1 + VOCAB_DATA.length) % VOCAB_DATA.length;
+      currentCardIndex = (currentCardIndex - 1 + filteredVocab.length) % filteredVocab.length;
       renderFlashcard();
     }
 
     function shuffleCards() {
-      VOCAB_DATA.sort(() => Math.random() - 0.5);
+      filteredVocab.sort(() => Math.random() - 0.5);
       currentCardIndex = 0;
       renderFlashcard();
       renderMiniWordList();
@@ -676,7 +1285,7 @@
     }
 
     function speakCurrentWord() {
-      const word = VOCAB_DATA[currentCardIndex].word;
+      const word = filteredVocab[currentCardIndex].word;
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(word);
@@ -684,24 +1293,24 @@
         utterance.rate = 0.85;
         window.speechSynthesis.speak(utterance);
       } else {
-        showToast("Trình duyệt không hỗ trợ Web Speech.", false);
+        showToast("Trình duyệt không hỗ trợ phát âm.", false);
       }
     }
 
     function renderMiniWordList() {
       const container = document.getElementById("mini-word-list");
       container.innerHTML = "";
-      VOCAB_DATA.forEach((item, idx) => {
+      filteredVocab.forEach((item, idx) => {
         const btn = document.createElement("button");
         btn.id = `mini-w-${idx}`;
         btn.onclick = () => {
           currentCardIndex = idx;
           renderFlashcard();
         };
-        btn.className = "text-left p-2.5 rounded-xl border border-slate-200 hover:border-emerald-300 transition text-xs font-semibold flex items-center justify-between";
+        btn.className = "text-left p-2 rounded-xl border border-slate-200 hover:border-emerald-300 transition text-xs font-semibold flex items-center justify-between";
         btn.innerHTML = `
-          <span class="text-slate-800 font-bold">${item.word}</span>
-          <span class="text-[10px] uppercase font-bold text-slate-400">${item.pos.split('/')[0]}</span>
+          <span class="text-slate-800 font-bold truncate max-w-[85px]">${item.word}</span>
+          <span class="text-[9px] uppercase font-bold text-slate-400">${item.pos.split('/')[0]}</span>
         `;
         container.appendChild(btn);
       });
@@ -709,15 +1318,37 @@
     }
 
     function highlightActiveMiniWord() {
-      VOCAB_DATA.forEach((_, idx) => {
+      filteredVocab.forEach((_, idx) => {
         const btn = document.getElementById(`mini-w-${idx}`);
         if (!btn) return;
         if (idx === currentCardIndex) {
-          btn.className = "text-left p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 transition text-xs font-semibold flex items-center justify-between shadow-xs";
+          btn.className = "text-left p-2 rounded-xl border-2 border-emerald-500 bg-emerald-50 transition text-xs font-semibold flex items-center justify-between shadow-xs";
         } else {
-          btn.className = "text-left p-2.5 rounded-xl border border-slate-200 hover:border-emerald-300 transition text-xs font-semibold flex items-center justify-between bg-white";
+          btn.className = "text-left p-2 rounded-xl border border-slate-200 hover:border-emerald-300 transition text-xs font-semibold flex items-center justify-between bg-white";
         }
       });
+    }
+
+    // ==========================================
+    // LOGIC NỐI CỤM
+    // ==========================================
+    function filterMatchUnit(unit) {
+      currentMatchUnit = unit;
+      ['all', 1, 2].forEach(u => {
+        const btn = document.getElementById(`match-unit-${u}`);
+        if (u === unit) {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition";
+        } else {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition";
+        }
+      });
+
+      if (unit === 'all') {
+        filteredMatch = [...ALL_MATCH_DATA];
+      } else {
+        filteredMatch = ALL_MATCH_DATA.filter(m => m.unit === unit);
+      }
+      initMatchGame();
     }
 
     function initMatchGame() {
@@ -725,19 +1356,20 @@
       selectedColA = null;
       selectedColB = null;
       document.getElementById("match-score").textContent = "0";
+      document.getElementById("match-total").textContent = filteredMatch.length;
 
       const colAContainer = document.getElementById("match-col-a");
       const colBContainer = document.getElementById("match-col-b");
       colAContainer.innerHTML = "";
       colBContainer.innerHTML = "";
 
-      const itemsA = [...MATCH_DATA].sort(() => Math.random() - 0.5);
-      const itemsB = [...MATCH_DATA].sort(() => Math.random() - 0.5);
+      const itemsA = [...filteredMatch].sort(() => Math.random() - 0.5);
+      const itemsB = [...filteredMatch].sort(() => Math.random() - 0.5);
 
       itemsA.forEach(item => {
         const btn = document.createElement("button");
         btn.dataset.id = item.id;
-        btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-white font-bold text-slate-800 hover:border-blue-400 transition text-sm flex items-center justify-between shadow-xs";
+        btn.className = "w-full min-h-[46px] text-left p-3 rounded-2xl border-2 border-slate-200 bg-white font-bold text-slate-800 hover:border-blue-400 active:scale-98 transition text-xs sm:text-sm flex items-center justify-between shadow-xs";
         btn.innerHTML = `<span>${item.word}</span> <i class="fa-solid fa-circle-dot text-slate-300 text-xs"></i>`;
         btn.onclick = () => selectMatchItem('A', item.id, btn);
         colAContainer.appendChild(btn);
@@ -746,8 +1378,8 @@
       itemsB.forEach(item => {
         const btn = document.createElement("button");
         btn.dataset.id = item.id;
-        btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-white font-medium text-slate-700 hover:border-blue-400 transition text-xs leading-relaxed flex items-center justify-between shadow-xs";
-        btn.innerHTML = `<span>${item.target}</span> <i class="fa-solid fa-link text-slate-300 text-xs"></i>`;
+        btn.className = "w-full min-h-[46px] text-left p-3 rounded-2xl border-2 border-slate-200 bg-white font-medium text-slate-700 hover:border-blue-400 active:scale-98 transition text-xs leading-relaxed flex items-center justify-between shadow-xs";
+        btn.innerHTML = `<span>${item.target}</span> <i class="fa-solid fa-link text-slate-300 text-xs shrink-0 ml-1"></i>`;
         btn.onclick = () => selectMatchItem('B', item.id, btn);
         colBContainer.appendChild(btn);
       });
@@ -788,10 +1420,10 @@
           selectedColA = null;
           selectedColB = null;
 
-          if (matchedPairsCount === MATCH_DATA.length) {
+          if (matchedPairsCount === filteredMatch.length) {
             setTimeout(() => {
-              showToast("Tuyệt vời! Bạn đã ghép đúng toàn bộ cụm collocation!", true);
-            }, 500);
+              showToast("Hoàn thành toàn bộ cụm collocation!", true);
+            }, 400);
           }
         } else {
           const elA = selectedColA.elem;
@@ -804,14 +1436,36 @@
             elB.classList.remove('border-blue-500', 'bg-blue-50', 'border-rose-400', 'bg-rose-50');
             selectedColA = null;
             selectedColB = null;
-          }, 600);
+          }, 500);
         }
       }
     }
 
+    // ==========================================
+    // LOGIC LUYỆN TẬP QUIZ
+    // ==========================================
+    function filterQuizUnit(unit) {
+      currentQuizUnit = unit;
+      [1, 2, 'all'].forEach(u => {
+        const btn = document.getElementById(`quiz-unit-${u}`);
+        if (u === unit) {
+          btn.className = "min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-emerald-600 text-white transition";
+        } else {
+          btn.className = "min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+        }
+      });
+
+      if (unit === 'all') {
+        filteredQuiz = [...ALL_QUIZ_QUESTIONS];
+      } else {
+        filteredQuiz = ALL_QUIZ_QUESTIONS.filter(q => q.unit === unit);
+      }
+      resetQuiz();
+    }
+
     function renderQuizQuestion() {
-      const q = QUIZ_QUESTIONS[quizCurrentIndex];
-      const totalQ = QUIZ_QUESTIONS.length;
+      const q = filteredQuiz[quizCurrentIndex];
+      const totalQ = filteredQuiz.length;
 
       document.getElementById("quiz-card").classList.remove("hidden");
       document.getElementById("quiz-result-box").classList.add("hidden");
@@ -821,6 +1475,7 @@
       document.getElementById("quiz-progress-bar").style.width = `${percentage}%`;
 
       document.getElementById("q-category").textContent = q.category;
+      document.getElementById("q-unit-label").textContent = `Unit ${q.unit}`;
       document.getElementById("q-sentence").textContent = q.sentence;
       document.getElementById("q-translation").textContent = `(${q.translation})`;
 
@@ -834,10 +1489,10 @@
       q.options.forEach((opt, idx) => {
         const btn = document.createElement("button");
         btn.id = `opt-btn-${idx}`;
-        btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-white hover:border-emerald-400 hover:bg-slate-50 transition font-medium text-slate-800 text-sm flex items-center justify-between";
+        btn.className = "w-full min-h-[46px] text-left p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-emerald-400 active:scale-98 transition font-medium text-slate-800 text-xs sm:text-sm flex items-center justify-between";
         btn.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <span class="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-600">${alphabet[idx]}</span>
+          <div class="flex items-center space-x-2.5">
+            <span class="w-6 h-6 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-600">${alphabet[idx]}</span>
             <span>${opt}</span>
           </div>
           <i class="fa-regular fa-circle text-slate-300 text-sm check-icon"></i>
@@ -848,7 +1503,7 @@
     }
 
     function checkAnswer(chosenIndex) {
-      const q = QUIZ_QUESTIONS[quizCurrentIndex];
+      const q = filteredQuiz[quizCurrentIndex];
       const isCorrect = chosenIndex === q.correct;
       const optionsContainer = document.getElementById("q-options");
       const buttons = optionsContainer.querySelectorAll("button");
@@ -861,13 +1516,13 @@
       if (isCorrect) {
         quizScore += 10;
         document.getElementById("quiz-score-badge").textContent = `${quizScore} điểm`;
-        chosenBtn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-emerald-500 bg-emerald-50 font-bold text-emerald-900 text-sm flex items-center justify-between";
+        chosenBtn.className = "w-full min-h-[46px] text-left p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50 font-bold text-emerald-900 text-xs sm:text-sm flex items-center justify-between";
         chosenBtn.querySelector('.check-icon').className = "fa-solid fa-circle-check text-emerald-600 text-base";
       } else {
-        chosenBtn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-rose-500 bg-rose-50 font-bold text-rose-900 text-sm flex items-center justify-between";
+        chosenBtn.className = "w-full min-h-[46px] text-left p-3 rounded-2xl border-2 border-rose-500 bg-rose-50 font-bold text-rose-900 text-xs sm:text-sm flex items-center justify-between";
         chosenBtn.querySelector('.check-icon').className = "fa-solid fa-circle-xmark text-rose-600 text-base";
 
-        correctBtn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 font-semibold text-emerald-900 text-sm flex items-center justify-between";
+        correctBtn.className = "w-full min-h-[46px] text-left p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 font-semibold text-emerald-900 text-xs sm:text-sm flex items-center justify-between";
         correctBtn.querySelector('.check-icon').className = "fa-solid fa-circle-check text-emerald-600 text-base";
       }
 
@@ -878,11 +1533,11 @@
 
       feedback.classList.remove("hidden");
       if (isCorrect) {
-        feedback.className = "p-4 rounded-2xl border border-emerald-200 bg-emerald-50/70 text-emerald-900 mt-2";
+        feedback.className = "p-3.5 sm:p-4 rounded-2xl border border-emerald-200 bg-emerald-50/70 text-emerald-900 mt-2";
         fbIcon.className = "fa-solid fa-circle-check text-emerald-600 text-lg mt-0.5";
         fbTitle.textContent = "Chính xác!";
       } else {
-        feedback.className = "p-4 rounded-2xl border border-rose-200 bg-rose-50/70 text-rose-900 mt-2";
+        feedback.className = "p-3.5 sm:p-4 rounded-2xl border border-rose-200 bg-rose-50/70 text-rose-900 mt-2";
         fbIcon.className = "fa-solid fa-triangle-exclamation text-rose-600 text-lg mt-0.5";
         fbTitle.textContent = "Chưa chính xác!";
       }
@@ -890,7 +1545,7 @@
     }
 
     function nextQuestion() {
-      if (quizCurrentIndex < QUIZ_QUESTIONS.length - 1) {
+      if (quizCurrentIndex < filteredQuiz.length - 1) {
         quizCurrentIndex++;
         renderQuizQuestion();
       } else {
@@ -904,39 +1559,36 @@
       resBox.classList.remove("hidden");
 
       const correctCount = quizScore / 10;
-      document.getElementById("final-score-display").textContent = `${correctCount} / ${QUIZ_QUESTIONS.length}`;
+      const totalQ = filteredQuiz.length;
+      document.getElementById("final-score-display").textContent = `${correctCount} / ${totalQ}`;
+
+      const unitText = currentQuizUnit === 'all' ? 'Unit 1 & Unit 2' : `Unit ${currentQuizUnit}`;
+      document.getElementById("quiz-result-subtitle").textContent = `Kết quả kiểm tra của học sinh: ${currentStudentName || 'Bạn'} (${unitText})`;
 
       const evalText = document.getElementById("final-eval-text");
-      if (correctCount >= 8) {
-        evalText.textContent = "Xuất sắc! Bạn đã sẵn sàng vận dụng 12 từ vựng này vào bài thi IELTS Band 5.0+.";
-      } else if (correctCount >= 5) {
-        evalText.textContent = "Khá tốt! Bạn hãy xem lại các lỗi sai về giới từ (impact on, reaction to) để ghi trọn điểm nhé.";
+      const percentage = (correctCount / totalQ) * 100;
+      if (percentage >= 80) {
+        evalText.textContent = "Xuất sắc! Bạn đã nắm rất vững kiến thức của phần bài này.";
+      } else if (percentage >= 50) {
+        evalText.textContent = "Khá tốt! Bạn hãy xem lại các lỗi sai về giới từ và collocations.";
       } else {
-        evalText.textContent = "Hãy lật lại Flashcards và thử làm lại một lần nữa để ghi nhớ sâu các collocations.";
+        evalText.textContent = "Hãy lật lại thẻ Flashcards và làm lại bài kiểm tra một lần nữa để ghi nhớ sâu hơn.";
       }
     }
 
     async function submitQuizResult() {
-      const nameInput = document.getElementById("student-name").value.trim();
       const statusEl = document.getElementById("submission-status");
       const submitBtn = document.getElementById("btn-submit-score");
 
-      if (!nameInput) {
-        statusEl.textContent = "Vui lòng nhập tên vào ô 'What\'s your name?' ở phía trên.";
-        statusEl.className = "text-xs font-semibold text-rose-600 min-h-[18px]";
-        document.getElementById("student-name").focus();
+      if (!currentStudentName) {
+        openNameModal();
         return;
       }
 
       const correctCount = quizScore / 10;
-      const totalQ = QUIZ_QUESTIONS.length;
+      const totalQ = filteredQuiz.length;
       const percentage = Math.round((correctCount / totalQ) * 100);
-
-      if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
-        statusEl.textContent = "Chưa cài đặt URL Google Apps Script trong file HTML.";
-        statusEl.className = "text-xs font-semibold text-amber-600 min-h-[18px]";
-        return;
-      }
+      const unitLabel = currentQuizUnit === 'all' ? 'Unit 1&2' : `Unit ${currentQuizUnit}`;
 
       statusEl.textContent = "Đang gửi kết quả về Google Sheets...";
       statusEl.className = "text-xs font-medium text-slate-500 min-h-[18px]";
@@ -948,13 +1600,13 @@
           mode: "no-cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: nameInput,
+            name: `${currentStudentName} (${unitLabel})`,
             score: correctCount,
             total: totalQ,
             percentage: percentage
           })
         });
-        statusEl.textContent = `Đã lưu kết quả thành công cho học sinh: ${nameInput}!`;
+        statusEl.textContent = `Đã lưu kết quả thành công cho học sinh: ${currentStudentName} (${unitLabel})!`;
         statusEl.className = "text-xs font-semibold text-emerald-600 min-h-[18px]";
         submitBtn.classList.add("hidden");
       } catch (err) {
@@ -975,6 +1627,213 @@
         submitBtn.disabled = false;
       }
       renderQuizQuestion();
+    }
+
+    // ==========================================
+    // LOGIC ĐIỀN TỪ (GAP-FILL & WORD FORM)
+    // ==========================================
+    function filterFillUnit(unit) {
+      currentFillUnit = unit;
+      [1, 2, 'all'].forEach(u => {
+        const btn = document.getElementById(`fill-unit-${u}`);
+        if (u === unit) {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition";
+        } else {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition";
+        }
+      });
+
+      if (unit === 'all') {
+        filteredFill = [...ALL_FILL_DATA];
+      } else {
+        filteredFill = ALL_FILL_DATA.filter(f => f.unit === unit);
+      }
+      resetFill();
+    }
+
+    function renderFill() {
+      const box = document.getElementById('fill-box');
+      if (fillIdx >= filteredFill.length) {
+        box.innerHTML = `
+          <div class="text-center space-y-3 py-6">
+            <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600">${fillScore} / ${filteredFill.length}</div>
+            <p class="text-xs sm:text-sm text-slate-500">Hoàn thành bài tập điền từ!</p>
+            <button onclick="resetFill()" class="min-h-[44px] px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs sm:text-sm transition">
+              Làm lại
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const q = filteredFill[fillIdx];
+      fillDone = false;
+      box.innerHTML = `
+        <div class="flex justify-between items-center text-xs text-slate-500 mb-2">
+          <span>Câu ${fillIdx + 1}/${filteredFill.length} • Unit ${q.unit}</span>
+          <span class="font-bold text-emerald-700">Điểm: ${fillScore}</span>
+        </div>
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed">${q.s}</h3>
+        <p class="text-xs italic text-slate-500 mt-1 mb-2.5">(${q.vi})</p>
+        <p class="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 mb-3">
+          <i class="fa-regular fa-lightbulb mr-1 text-amber-600"></i>Gợi ý: ${q.h}
+        </p>
+        <input id="fill-input" autocomplete="off" autocapitalize="none" onfocus="this.scrollIntoView({behavior: 'smooth', block: 'center'})" onkeydown="if(event.key==='Enter')checkFill()" placeholder="Gõ đáp án vào đây..." class="w-full min-h-[46px] px-4 py-2.5 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 outline-none text-sm font-semibold mb-3">
+        <div id="fill-fb" class="text-xs sm:text-sm mb-3 min-h-[22px]"></div>
+        <div class="flex gap-2">
+          <button onclick="checkFill()" class="min-h-[44px] px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs sm:text-sm font-bold transition">
+            Kiểm tra
+          </button>
+          <button id="fill-next" onclick="fillIdx++;renderFill()" class="hidden min-h-[44px] px-5 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 text-xs sm:text-sm font-bold transition">
+            Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+      `;
+    }
+
+    function checkFill() {
+      if (fillDone) return;
+      const q = filteredFill[fillIdx];
+      const inputEl = document.getElementById('fill-input');
+      const v = inputEl.value.trim().toLowerCase();
+      if (!v) return;
+      
+      fillDone = true;
+      inputEl.disabled = true;
+      const ok = v === q.a.toLowerCase();
+      if (ok) fillScore++;
+
+      const fb = document.getElementById('fill-fb');
+      fb.innerHTML = ok
+        ? '<span class="text-emerald-700 font-bold"><i class="fa-solid fa-circle-check mr-1.5"></i>Chính xác!</span>'
+        : `<span class="text-rose-700 font-bold"><i class="fa-solid fa-circle-xmark mr-1.5"></i>Chưa đúng.</span> Đáp án chuẩn: <b>${q.a}</b>`;
+      document.getElementById('fill-next').classList.remove('hidden');
+    }
+
+    function resetFill() {
+      fillIdx = 0;
+      fillScore = 0;
+      renderFill();
+    }
+
+    // ==========================================
+    // LOGIC SẮP XẾP CÂU (SENTENCE BUILDER)
+    // ==========================================
+    function filterOrderUnit(unit) {
+      currentOrderUnit = unit;
+      [1, 2, 'all'].forEach(u => {
+        const btn = document.getElementById(`order-unit-${u}`);
+        if (u === unit) {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition";
+        } else {
+          btn.className = "min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition";
+        }
+      });
+
+      if (unit === 'all') {
+        filteredOrder = [...ALL_ORDER_DATA];
+      } else {
+        filteredOrder = ALL_ORDER_DATA.filter(o => o.unit === unit);
+      }
+      resetOrder();
+    }
+
+    function startOrder() {
+      if (orderIdx < filteredOrder.length) {
+        const clean = filteredOrder[orderIdx].s.replace(/\.$/, '');
+        orderTokens = clean.split(' ').sort(() => Math.random() - 0.5);
+      }
+      orderPicked = [];
+      orderDone = false;
+      renderOrder();
+    }
+
+    function renderOrder() {
+      const box = document.getElementById('order-box');
+      if (orderIdx >= filteredOrder.length) {
+        box.innerHTML = `
+          <div class="text-center space-y-3 py-6">
+            <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600">${orderScore} / ${filteredOrder.length}</div>
+            <p class="text-xs sm:text-sm text-slate-500">Hoàn thành bài tập sắp xếp câu!</p>
+            <button onclick="resetOrder()" class="min-h-[44px] px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs sm:text-sm transition">
+              Làm lại
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const q = filteredOrder[orderIdx];
+      // Nút chọn từ có min-h-[42px] chống bấm nhầm trên màn hình cảm ứng
+      const chip = (i, fn, cls) => `<button onclick="${fn}(${i})" class="${cls} min-h-[42px] px-3 py-2 rounded-xl border-2 text-xs sm:text-sm font-bold transition active:scale-95 shadow-2xs">${orderTokens[i]}</button>`;
+
+      box.innerHTML = `
+        <div class="flex justify-between items-center text-xs text-slate-500 mb-1">
+          <span>Câu ${orderIdx + 1}/${filteredOrder.length} • Unit ${q.unit}</span>
+          <span class="font-bold text-emerald-700">Điểm: ${orderScore}</span>
+        </div>
+        <p class="text-xs sm:text-sm italic text-slate-600 mb-2.5">(${q.vi})</p>
+        
+        <!-- Khung câu được ghép -->
+        <div class="min-h-[64px] p-2.5 rounded-2xl border-2 border-dashed border-slate-300 flex flex-wrap items-center gap-2 mb-3 bg-slate-50/50">
+          ${orderPicked.map(i => chip(i, 'unpickWord', 'bg-emerald-50 border-emerald-400 text-emerald-900')).join('')}
+          <span class="text-slate-400 font-bold text-base select-none">.</span>
+        </div>
+
+        <!-- Khung kho từ chưa chọn -->
+        <div class="flex flex-wrap gap-2 mb-3.5 min-h-[46px]">
+          ${orderTokens.map((_, i) => orderPicked.includes(i) ? '' : chip(i, 'pickWord', 'bg-white border-slate-200 hover:border-blue-400 text-slate-800 shadow-xs')).join('')}
+        </div>
+
+        <div id="order-fb" class="text-xs sm:text-sm mb-3 min-h-[22px]"></div>
+        <div class="flex gap-2">
+          <button onclick="checkOrder()" class="min-h-[44px] px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs sm:text-sm font-bold transition">
+            Kiểm tra
+          </button>
+          <button id="order-next" onclick="orderIdx++;startOrder()" class="hidden min-h-[44px] px-5 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 text-xs sm:text-sm font-bold transition">
+            Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+      `;
+    }
+
+    function pickWord(i) {
+      if (orderDone) return;
+      orderPicked.push(i);
+      renderOrder();
+    }
+
+    function unpickWord(i) {
+      if (orderDone) return;
+      orderPicked = orderPicked.filter(x => x !== i);
+      renderOrder();
+    }
+
+    function checkOrder() {
+      if (orderDone) return;
+      const q = filteredOrder[orderIdx];
+      if (orderPicked.length < orderTokens.length) {
+        showToast("Hãy chạm chọn hết các từ trước khi kiểm tra.", false);
+        return;
+      }
+
+      orderDone = true;
+      const cleanTarget = q.s.replace(/\.$/, '');
+      const userSentence = orderPicked.map(i => orderTokens[i]).join(' ');
+      const ok = userSentence === cleanTarget;
+      if (ok) orderScore++;
+
+      const fb = document.getElementById('order-fb');
+      fb.innerHTML = ok
+        ? '<span class="text-emerald-700 font-bold"><i class="fa-solid fa-circle-check mr-1.5"></i>Chính xác!</span>'
+        : `<span class="text-rose-700 font-bold"><i class="fa-solid fa-circle-xmark mr-1.5"></i>Chưa đúng.</span> Câu chuẩn: <b>${q.s}</b>`;
+      document.getElementById('order-next').classList.remove('hidden');
+    }
+
+    function resetOrder() {
+      orderIdx = 0;
+      orderScore = 0;
+      startOrder();
     }
   </script>
 </body>
