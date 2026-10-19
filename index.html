@@ -147,16 +147,16 @@
       <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Chọn Unit:</span>
         <div class="flex gap-1.5">
-          <button id="fc-unit-all" onclick="filterFlashcardUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Tất cả (26)</button>
-          <button id="fc-unit-1" onclick="filterFlashcardUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Unit 1 (12)</button>
-          <button id="fc-unit-2" onclick="filterFlashcardUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Unit 2 (14)</button>
+          <button id="fc-unit-all" onclick="filterFlashcardUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Tất cả (47)</button>
+          <button id="fc-unit-1" onclick="filterFlashcardUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Unit 1 (23)</button>
+          <button id="fc-unit-2" onclick="filterFlashcardUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Unit 2 (24)</button>
         </div>
       </div>
 
       <div class="flex items-center justify-between text-sm bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs">
         <div class="flex items-center space-x-2">
           <span class="text-slate-500 font-medium text-xs sm:text-sm">Từ số:</span>
-          <span id="fc-counter" class="text-emerald-700 font-extrabold text-sm sm:text-base">1 / 26</span>
+          <span id="fc-counter" class="text-emerald-700 font-extrabold text-sm sm:text-base">1 / 47</span>
         </div>
         <div class="flex items-center space-x-2">
           <button onclick="speakCurrentWord()" class="min-h-[36px] px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 active:scale-95 transition flex items-center font-bold text-xs">
@@ -172,20 +172,20 @@
         <div id="flashcard-inner" class="card-inner relative w-full h-full min-h-[380px] sm:min-h-[360px]">
           <div class="card-front absolute inset-0 bg-white rounded-3xl p-5 sm:p-8 border-2 border-emerald-100 shadow-sm flex flex-col justify-between">
             <div class="flex justify-between items-start">
-              <span id="fc-pos" class="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">VERB</span>
+              <span id="fc-pos" class="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">NOUN PHRASE</span>
               <span class="text-xs text-slate-400 flex items-center font-medium"><i class="fa-solid fa-repeat mr-1"></i> Chạm để lật nghĩa</span>
             </div>
             <div class="text-center my-auto py-3">
-              <h2 id="fc-word" class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-1.5">conclude</h2>
-              <p id="fc-phonetic" class="text-emerald-600 font-mono text-sm sm:text-base font-semibold">/kənˈkluːd/</p>
+              <h2 id="fc-word" class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-1.5">crime rate</h2>
+              <p id="fc-phonetic" class="text-emerald-600 font-mono text-sm sm:text-base font-semibold">/kraɪm reɪt/</p>
               <div class="mt-3.5 inline-flex items-center text-xs bg-slate-50 text-slate-600 px-3 py-1.5 rounded-full border border-slate-200">
                 <i class="fa-regular fa-lightbulb text-amber-500 mr-1.5"></i>
-                <span id="fc-quickhint">Thường xuất hiện trong mở bài/kết bài Writing & Reading</span>
+                <span id="fc-quickhint">Chỉ số về số lượng hành vi vi phạm pháp luật</span>
               </div>
             </div>
             <div class="bg-slate-50 rounded-2xl p-3.5 sm:p-4 border border-slate-100">
               <p class="text-[11px] uppercase font-bold text-slate-400 mb-0.5 tracking-wider">Collocation quan trọng:</p>
-              <p id="fc-collocation" class="text-xs sm:text-sm font-semibold text-slate-800">to conclude that / in conclusion</p>
+              <p id="fc-collocation" class="text-xs sm:text-sm font-semibold text-slate-800">high/low crime rate / reduce crime rate</p>
             </div>
           </div>
           <div class="card-back absolute inset-0 bg-gradient-to-br from-emerald-800 to-teal-900 text-white rounded-3xl p-5 sm:p-8 shadow-md flex flex-col justify-between">
@@ -196,17 +196,17 @@
             <div class="space-y-2.5 my-auto py-1">
               <div>
                 <p class="text-[11px] uppercase text-emerald-300 font-bold">Nghĩa tiếng Việt:</p>
-                <p id="fc-meaning-vi" class="text-lg sm:text-xl font-bold text-white">kết luận, đi đến kết thúc</p>
-                <p id="fc-meaning-en" class="text-xs sm:text-sm text-emerald-100 font-light mt-0.5">To decide that something is true after considering all information</p>
+                <p id="fc-meaning-vi" class="text-lg sm:text-xl font-bold text-white">tỷ lệ tội phạm</p>
+                <p id="fc-meaning-en" class="text-xs sm:text-sm text-emerald-100 font-light mt-0.5">The ratio of crimes in an area to the population.</p>
               </div>
               <div class="bg-white/10 rounded-xl p-3 border border-white/10 backdrop-blur-xs">
                 <p class="text-[11px] uppercase font-bold text-emerald-300 mb-0.5">Ví dụ thực tế:</p>
-                <p id="fc-example" class="text-xs sm:text-sm font-medium italic">"The researchers concluded that city life causes more stress."</p>
-                <p id="fc-example-vi" class="text-[11px] text-emerald-200 mt-1">Các nhà nghiên cứu kết luận rằng cuộc sống thành thị gây nhiều áp lực hơn.</p>
+                <p id="fc-example" class="text-xs sm:text-sm font-medium italic">"The city center has a low crime rate, making it safe for tourists."</p>
+                <p id="fc-example-vi" class="text-[11px] text-emerald-200 mt-1">Khu vực trung tâm thành phố có tỷ lệ tội phạm thấp, giúp du khách an tâm.</p>
               </div>
               <div class="bg-amber-400/20 rounded-xl p-2.5 border border-amber-300/30">
                 <p class="text-xs font-bold text-amber-200 flex items-center"><i class="fa-solid fa-star text-amber-300 mr-1.5"></i> Mẹo thi IELTS Band 4.5+:</p>
-                <p id="fc-tip" class="text-xs text-white/90 mt-0.5">Dùng "In conclusion, ..." ở đầu đoạn kết của Writing Task 2 thay vì những cách dịch thô thiển.</p>
+                <p id="fc-tip" class="text-xs text-white/90 mt-0.5">Dùng "reduce/lower crime rate" trong Writing Task 2 chủ đề Society.</p>
               </div>
             </div>
             <div class="text-center text-xs text-emerald-200 font-medium">Chạm thẻ để quay lại mặt trước</div>
@@ -242,7 +242,7 @@
           </div>
           <div class="flex items-center gap-2 self-start sm:self-auto">
             <span class="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">
-              Đã ghép: <span id="match-score">0</span> / <span id="match-total">12</span>
+              Đã ghép: <span id="match-score">0</span> / <span id="match-total">16</span>
             </span>
             <button onclick="initMatchGame()" class="min-h-[36px] text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700">
               <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại
@@ -253,9 +253,9 @@
         <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
           <span class="text-xs font-bold text-slate-600 ml-1">Chọn phần bài tập:</span>
           <div class="flex gap-1.5">
-            <button id="match-unit-all" onclick="filterMatchUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Tất cả (12)</button>
-            <button id="match-unit-1" onclick="filterMatchUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 1 (6)</button>
-            <button id="match-unit-2" onclick="filterMatchUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (6)</button>
+            <button id="match-unit-all" onclick="filterMatchUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Tất cả (16)</button>
+            <button id="match-unit-1" onclick="filterMatchUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 1 (8)</button>
+            <button id="match-unit-2" onclick="filterMatchUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (8)</button>
           </div>
         </div>
 
@@ -275,9 +275,9 @@
       <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
         <span class="text-xs font-bold text-slate-600 ml-1">Chọn Unit làm bài:</span>
         <div class="flex gap-1.5">
-          <button id="quiz-unit-1" onclick="filterQuizUnit(1)" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (10)</button>
-          <button id="quiz-unit-2" onclick="filterQuizUnit(2)" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Unit 2 (10)</button>
-          <button id="quiz-unit-all" onclick="filterQuizUnit('all')" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Tất cả (20)</button>
+          <button id="quiz-unit-1" onclick="filterQuizUnit(1)" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (12)</button>
+          <button id="quiz-unit-2" onclick="filterQuizUnit(2)" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Unit 2 (12)</button>
+          <button id="quiz-unit-all" onclick="filterQuizUnit('all')" class="min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Tất cả (24)</button>
         </div>
       </div>
 
@@ -285,10 +285,10 @@
         <div class="w-full sm:w-1/2">
           <div class="flex justify-between text-xs font-bold text-slate-600 mb-1">
             <span>Tiến độ câu hỏi</span>
-            <span id="quiz-progress-text">Câu 1/10</span>
+            <span id="quiz-progress-text">Câu 1/12</span>
           </div>
           <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-            <div id="quiz-progress-bar" class="bg-emerald-600 h-2.5 rounded-full transition-all duration-300 w-[10%]"></div>
+            <div id="quiz-progress-bar" class="bg-emerald-600 h-2.5 rounded-full transition-all duration-300 w-[8%]"></div>
           </div>
         </div>
         <div class="flex items-center space-x-3 self-end sm:self-auto">
@@ -331,7 +331,7 @@
           <p class="text-slate-500 text-xs sm:text-sm mt-1" id="quiz-result-subtitle">Kết quả kiểm tra từ vựng.</p>
         </div>
         <div class="py-2">
-          <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600" id="final-score-display">0 / 10</div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600" id="final-score-display">0 / 12</div>
           <p id="final-eval-text" class="text-xs text-slate-500 mt-2 font-medium">Đang đánh giá...</p>
         </div>
         <div class="max-w-xs mx-auto space-y-2 pt-1">
@@ -363,9 +363,9 @@
         <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
           <span class="text-xs font-bold text-slate-600 ml-1">Chọn Unit:</span>
           <div class="flex gap-1.5">
-            <button id="fill-unit-1" onclick="filterFillUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (6)</button>
-            <button id="fill-unit-2" onclick="filterFillUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (6)</button>
-            <button id="fill-unit-all" onclick="filterFillUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Tất cả (12)</button>
+            <button id="fill-unit-1" onclick="filterFillUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (8)</button>
+            <button id="fill-unit-2" onclick="filterFillUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (8)</button>
+            <button id="fill-unit-all" onclick="filterFillUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Tất cả (16)</button>
           </div>
         </div>
 
@@ -373,13 +373,13 @@
       </div>
     </section>
 
-    <!-- VIEW 5: SẮP XẾP CÂU (SENTENCE BUILDER) -->
+    <!-- VIEW 5: SẮP XẾP CỤM THÀNH CÂU (SENTENCE BUILDER BY CHUNKS) -->
     <section id="view-order" class="hidden space-y-5">
       <div class="bg-white p-4 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
           <div>
-            <h2 class="text-base sm:text-lg font-bold text-slate-900">Sắp xếp câu (Sentence Builder)</h2>
-            <p class="text-xs text-slate-500">Chạm các từ theo đúng thứ tự để tạo câu hoàn chỉnh.</p>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Sắp xếp cụm thành câu (Phrase Builder)</h2>
+            <p class="text-xs text-slate-500">Chạm các cụm từ theo đúng thứ tự để tạo câu hoàn chỉnh.</p>
           </div>
           <button onclick="resetOrder()" class="min-h-[36px] text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 self-start sm:self-auto">
             <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại
@@ -389,9 +389,9 @@
         <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200">
           <span class="text-xs font-bold text-slate-600 ml-1">Chọn Unit:</span>
           <div class="flex gap-1.5">
-            <button id="order-unit-1" onclick="filterOrderUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (4)</button>
-            <button id="order-unit-2" onclick="filterOrderUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (4)</button>
-            <button id="order-unit-all" onclick="filterOrderUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Tất cả (8)</button>
+            <button id="order-unit-1" onclick="filterOrderUnit(1)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-emerald-600 text-white transition">Unit 1 (6)</button>
+            <button id="order-unit-2" onclick="filterOrderUnit(2)" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Unit 2 (6)</button>
+            <button id="order-unit-all" onclick="filterOrderUnit('all')" class="min-h-[36px] px-3 py-1 text-xs font-bold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition">Tất cả (12)</button>
           </div>
         </div>
 
@@ -411,138 +411,86 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrs1xFlJXE0jf3GqYeOTLpYYznhz8ZaMhnVNgxG-UYVFZzo9jQ8bNAlz2UpliRYJYb6w/exec";
 
-    // 26 TỪ VỰNG KÈM NHÃN UNIT
+    // 47 TỪ VỰNG TRỌNG TÂM UNIT 1 & UNIT 2
     const ALL_VOCAB_DATA = [
-      // UNIT 1
+      // UNIT 1: GREAT PLACES TO BE (23 TỪ)
       {
         unit: 1,
-        word: "conclude",
-        pos: "verb",
-        phonetic: "/kənˈkluːd/",
-        meaningVi: "kết luận, đi đến kết thúc",
-        meaningEn: "To decide or reach an opinion after thinking about information.",
-        collocation: "conclude that... / in conclusion",
-        example: "From the survey, we can conclude that public transport is too slow.",
-        exampleVi: "Từ khảo sát, chúng ta có thể kết luận rằng giao thông công cộng quá chậm.",
-        tip: "Trong Writing Task 2, luôn bắt đầu đoạn kết bằng cụm 'In conclusion,' thay vì dùng những từ dịch thô.",
-        hint: "Động từ kết thúc/kết luận"
+        word: "crime rate",
+        pos: "noun phrase",
+        phonetic: "/kraɪm reɪt/",
+        meaningVi: "tỷ lệ tội phạm",
+        meaningEn: "The ratio of crimes in an area to the population.",
+        collocation: "high/low crime rate / reduce crime rate",
+        example: "The city center has a low crime rate, making it safe for tourists.",
+        exampleVi: "Khu vực trung tâm thành phố có tỷ lệ tội phạm thấp, giúp du khách an tâm.",
+        tip: "Dùng 'reduce/lower crime rate' trong Writing Task 2 chủ đề Society.",
+        hint: "Chỉ số về số lượng hành vi vi phạm pháp luật"
       },
       {
         unit: 1,
-        word: "crime",
-        pos: "noun",
-        phonetic: "/kraɪm/",
-        meaningVi: "tội phạm, hành vi phạm tội",
-        meaningEn: "Illegal activities in general or an illegal act.",
-        collocation: "commit a crime / reduce crime rates",
-        example: "The government should install more CCTV cameras to reduce crime.",
-        exampleVi: "Chính phủ nên lắp thêm camera để giảm tội phạm.",
-        tip: "Hay gặp trong Writing Task 2 chủ đề Xã hội. Nhớ dùng cụm 'commit a crime' (phạm tội) chứ KHÔNG dùng 'make a crime'.",
-        hint: "Hành động vi phạm pháp luật"
+        word: "friendly inhabitants",
+        pos: "noun phrase",
+        phonetic: "/ˈfrendli ɪnˈhæbɪtənts/",
+        meaningVi: "cư dân thân thiện",
+        meaningEn: "People living in a place who are kind and welcoming.",
+        collocation: "welcoming / friendly inhabitants",
+        example: "The local village is famous for its friendly inhabitants.",
+        exampleVi: "Ngôi làng địa phương nổi tiếng với những cư dân thân thiện.",
+        tip: "Thay thế cho 'friendly local people' trong Speaking Part 1.",
+        hint: "Người dân sống tại một khu vực"
       },
       {
         unit: 1,
-        word: "diverse",
-        pos: "adjective",
-        phonetic: "/daɪˈvɜːs/",
-        meaningVi: "đa dạng, nhiều kiểu khác nhau",
-        meaningEn: "Very different from each other and of various kinds.",
-        collocation: "diverse culture / diverse range of goods",
-        example: "Ho Chi Minh City has a diverse food culture from all over Vietnam.",
-        exampleVi: "TP. Hồ Chí Minh có nền văn hóa ẩm thực đa dạng từ khắp Việt Nam.",
-        tip: "Dùng để nâng band khi nói về quê hương trong Speaking Part 1: 'My city has diverse communities.'",
-        hint: "Tính từ miêu tả sự phong phú, nhiều loại"
+        word: "fast public transport",
+        pos: "noun phrase",
+        phonetic: "/fɑːst ˈpʌblɪk ˈtrænspɔːt/",
+        meaningVi: "giao thông công cộng nhanh chóng",
+        meaningEn: "Buses, trains, and subways that travel quickly.",
+        collocation: "efficient / fast public transport system",
+        example: "Developing fast public transport helps cut down on air pollution.",
+        exampleVi: "Phát triển giao thông công cộng nhanh chóng giúp giảm thiểu ô nhiễm không khí.",
+        tip: "Dùng làm giải pháp cho kẹt xe trong Writing Task 2.",
+        hint: "Xe buýt, tàu điện ngầm chạy nhanh"
       },
       {
         unit: 1,
-        word: "impact",
-        pos: "noun / verb",
-        phonetic: "/ˈɪmpækt/",
-        meaningVi: "ảnh hưởng mạnh mẽ, tác động lớn",
-        meaningEn: "The powerful effect that something has on a situation or person.",
-        collocation: "have a big impact ON something",
-        example: "Tourism can have a negative impact on the local environment.",
-        exampleVi: "Du lịch có thể gây tác động tiêu cực đến môi trường địa phương.",
-        tip: "Quy tắc sống còn band 4-5: 'impact' khi đi với danh từ luôn đi với giới từ 'ON' (impact on sth).",
-        hint: "Luôn đi cùng giới từ ON"
+        word: "crowded streets",
+        pos: "noun phrase",
+        phonetic: "/ˈkraʊdɪd striːts/",
+        meaningVi: "đường phố đông đúc",
+        meaningEn: "Streets full of people and vehicles.",
+        collocation: "busy / crowded streets",
+        example: "Driving through crowded streets during rush hour takes a lot of time.",
+        exampleVi: "Đi qua những con đường đông đúc vào giờ cao điểm mất rất nhiều thời gian.",
+        tip: "Thường dùng miêu tả các đô thị lớn trong Speaking Part 1 & 2.",
+        hint: "Con đường chật nát người và xe"
       },
       {
         unit: 1,
-        word: "industrial",
-        pos: "adjective",
-        phonetic: "/ɪnˈdʌstriəl/",
-        meaningVi: "thuộc về công nghiệp",
-        meaningEn: "Connected with industry, factories, or production.",
-        collocation: "industrial zone / industrial area / industrial waste",
-        example: "Many young people move away from industrial zones to find fresh air.",
-        exampleVi: "Nhiều người trẻ chuyển đi khỏi các khu công nghiệp để tìm không khí trong lành.",
-        tip: "Phân biệt từ loại: 'Industry' (danh từ: nền công nghiệp), còn 'Industrial' (tính từ đứng trước danh từ).",
-        hint: "Tính từ bổ nghĩa cho khu vực/nhà máy"
+        word: "relaxed lifestyle",
+        pos: "noun phrase",
+        phonetic: "/rɪˈlækst ˈlaɪfstaɪl/",
+        meaningVi: "lối sống thư thái, thoải mái",
+        meaningEn: "A way of living that is calm and free from stress.",
+        collocation: "lead a relaxed lifestyle / way of life",
+        example: "Coastal towns offer a relaxed lifestyle away from big city stress.",
+        exampleVi: "Các thành phố ven biển mang lại lối sống thư thái tránh xa áp lực đô thị.",
+        tip: "Kết hợp với động từ 'lead' -> lead a relaxed lifestyle.",
+        hint: "Nhịp sống bình yên, ít áp lực"
       },
       {
         unit: 1,
-        word: "influence",
-        pos: "noun / verb",
-        phonetic: "/ˈɪnfluəns/",
-        meaningVi: "ảnh hưởng, tác động lên ai/cái gì",
-        meaningEn: "The power to affect people or things without using direct force.",
-        collocation: "have an influence ON somebody/something",
-        example: "Parents have a profound influence on their children's reading habits.",
-        exampleVi: "Cha mẹ có sức ảnh hưởng sâu sắc đến thói quen đọc sách của con cái.",
-        tip: "Tương tự như 'impact', danh từ 'influence' bắt buộc dùng giới từ 'ON'.",
-        hint: "Thường đi kèm giới từ ON"
-      },
-      {
-        unit: 1,
-        word: "lifestyle",
-        pos: "noun",
-        phonetic: "/ˈlaɪfstaɪl/",
-        meaningVi: "lối sống, phong cách sống",
-        meaningEn: "The way in which a person or a group of people lives.",
-        collocation: "healthy lifestyle / sedentary lifestyle",
-        example: "Doing regular exercise helps you maintain a healthy lifestyle.",
-        exampleVi: "Tập thể dục đều đặn giúp bạn duy trì một lối sống lành mạnh.",
-        tip: "Rất hay gặp ở Speaking Part 1 chủ đề Health/Daily routine. Cụm ăn điểm: 'lead a healthy lifestyle'.",
-        hint: "Cách một người sinh hoạt mỗi ngày"
-      },
-      {
-        unit: 1,
-        word: "locals",
-        pos: "noun (plural)",
-        phonetic: "/ˈləʊklz/",
-        meaningVi: "người dân địa phương",
-        meaningEn: "The people who live in a particular small area or town.",
-        collocation: "friendly locals / talk to the locals",
-        example: "When travelling to Da Lat, I love chatting with the friendly locals.",
-        exampleVi: "Khi đi du lịch Đà Lạt, tôi rất thích trò chuyện với người dân địa phương thân thiện.",
-        tip: "Dùng từ này thay vì cứ lặp đi lặp lại 'local people'. 'The locals' nghe tự nhiên hơn hẳn.",
-        hint: "Danh từ số nhiều chỉ cư dân tại chỗ"
-      },
-      {
-        unit: 1,
-        word: "ranks",
-        pos: "verb / noun",
-        phonetic: "/ræŋks/",
-        meaningVi: "đứng thứ hạng, xếp hạng",
-        meaningEn: "To have a particular position on a list of things or people.",
-        collocation: "rank first / ranks among the best",
-        example: "Vietnam ranks among the top exporters of rice in the world.",
-        exampleVi: "Việt Nam xếp vào hàng ngũ các nước xuất khẩu gạo hàng đầu thế giới.",
-        tip: "Trong Writing Task 1 miêu tả biểu đồ số liệu: 'X ranks first with 45%'.",
-        hint: "Vị trí trong danh sách hay bảng xếp hạng"
-      },
-      {
-        unit: 1,
-        word: "reaction",
-        pos: "noun",
-        phonetic: "/riˈækʃn/",
-        meaningVi: "phản ứng",
-        meaningEn: "What you say or do as a result of something that has happened.",
-        collocation: "reaction TO something / immediate reaction",
-        example: "What was his initial reaction to the good news?",
-        exampleVi: "Phản ứng ban đầu của anh ấy trước tin tốt đó là gì?",
-        tip: "Cần nhớ giới từ: 'reaction TO' (chứ không dùng 'with' hay 'for').",
-        hint: "Phản hồi/phản ứng lại một hành động"
+        word: "spectacular scenery",
+        pos: "noun phrase",
+        phonetic: "/spekˈtækjələr ˈsiːnəri/",
+        meaningVi: "cảnh quan ngoạn mục",
+        meaningEn: "Extremely impressive and beautiful natural views.",
+        collocation: "admire / enjoy spectacular scenery",
+        example: "The national park attracts thousands of visitors due to its spectacular scenery.",
+        exampleVi: "Vườn quốc gia thu hút hàng ngàn du khách nhờ cảnh quan ngoạn mục.",
+        tip: "Cụm tính từ + danh từ rất hay dùng tả cảnh đẹp thiên nhiên.",
+        hint: "Phong cảnh thiên nhiên tuyệt đẹp"
       },
       {
         unit: 1,
@@ -550,12 +498,207 @@
         pos: "noun",
         phonetic: "/ˌrepjuˈteɪʃn/",
         meaningVi: "danh tiếng, uy tín",
-        meaningEn: "The general opinion that people have about someone or something.",
-        collocation: "good reputation / gain a reputation for...",
-        example: "The university has an excellent reputation for scientific research.",
-        exampleVi: "Trường đại học có danh tiếng xuất sắc về nghiên cứu khoa học.",
-        tip: "Cụm thường dùng: 'have a reputation for + V-ing/Noun' (nổi tiếng về điều gì).",
+        meaningEn: "The opinion that people have about someone or something.",
+        collocation: "have a good/bad reputation for something",
+        example: "The university has an international reputation for medical research.",
+        exampleVi: "Trường đại học có danh tiếng quốc tế về nghiên cứu y học.",
+        tip: "Cụm thường gặp: have a reputation for + N/V-ing.",
         hint: "Tiếng tăm, sự tín nhiệm của mọi người"
+      },
+      {
+        unit: 1,
+        word: "industrial / suburban",
+        pos: "adjective",
+        phonetic: "/ɪnˈdʌstriəl/ - /səˈbɜːbən/",
+        meaningVi: "thuộc công nghiệp / thuộc ngoại ô",
+        meaningEn: "Related to factories / located on the outer part of a city.",
+        collocation: "industrial zone / suburban area",
+        example: "Many young families choose to live in suburban areas for fresh air.",
+        exampleVi: "Nhiều gia đình trẻ chọn sống ở vùng ngoại ô để có không khí trong lành.",
+        tip: "Phân biệt khu công nghiệp (industrial) và vùng ngoại ô (suburban).",
+        hint: "Tính từ miêu tả đặc điểm khu vực"
+      },
+      {
+        unit: 1,
+        word: "on the outskirts",
+        pos: "prepositional phrase",
+        phonetic: "/ɒn ðə ˈaʊtskɜːts/",
+        meaningVi: "ở vùng ngoại ô",
+        meaningEn: "In the outer areas of a town or city.",
+        collocation: "live on the outskirts of a city / in the suburbs",
+        example: "They decided to buy a house on the outskirts of Ho Chi Minh City.",
+        exampleVi: "Họ quyết định mua một ngôi nhà ở vùng ngoại ô TP. Hồ Chí Minh.",
+        tip: "Nhớ giới từ đi kèm: ON the outskirts, nhưng IN the suburbs.",
+        hint: "Ranh giới ven thành phố"
+      },
+      {
+        unit: 1,
+        word: "access to",
+        pos: "noun / verb phrase",
+        phonetic: "/ˈækses tuː/",
+        meaningVi: "quyền / khả năng tiếp cận cái gì",
+        meaningEn: "The opportunity or right to use something.",
+        collocation: "have access to healthcare / education / internet",
+        example: "People living in cities usually have better access to modern hospitals.",
+        exampleVi: "Người dân sống ở thành phố thường tiếp cận tốt hơn với các bệnh viện hiện đại.",
+        tip: "Bắt buộc đi kèm giới từ 'TO' (access to sth).",
+        hint: "Khả năng tiếp cận dịch vụ, thông tin"
+      },
+      {
+        unit: 1,
+        word: "conclude",
+        pos: "verb",
+        phonetic: "/kənˈkluːd/",
+        meaningVi: "kết luận, đi đến kết thúc",
+        meaningEn: "To decide or reach an opinion after considering information.",
+        collocation: "conclude that... / in conclusion",
+        example: "Researchers concluded that green spaces improve mental health.",
+        exampleVi: "Các nhà nghiên cứu kết luận rằng không gian xanh giúp cải thiện sức khỏe tinh thần.",
+        tip: "Bắt đầu đoạn kết bài IELTS Writing bằng 'In conclusion,'.",
+        hint: "Động từ đưa ra nhận định cuối cùng"
+      },
+      {
+        unit: 1,
+        word: "conduct research",
+        pos: "verb phrase",
+        phonetic: "/kənˈdʌkt rɪˈsɜːtʃ/",
+        meaningVi: "tiến hành nghiên cứu",
+        meaningEn: "To carry out a study to discover new facts.",
+        collocation: "conduct research into / on something",
+        example: "Scientists are conducting research on renewable energy sources.",
+        exampleVi: "Các nhà khoa học đang tiến hành nghiên cứu về các nguồn năng lượng tái tạo.",
+        tip: "Dùng 'conduct research' thay cho 'do research' để trang trọng hơn.",
+        hint: "Thực hiện các khảo sát, nghiên cứu khoa học"
+      },
+      {
+        unit: 1,
+        word: "consume",
+        pos: "verb",
+        phonetic: "/kənˈsjuːm/",
+        meaningVi: "tiêu thụ (năng lượng, hàng hóa)",
+        meaningEn: "To use up energy, fuel, or resources.",
+        collocation: "consume energy / fuel / resources",
+        example: "Modern households consume more electricity than in the past.",
+        exampleVi: "Các hộ gia đình hiện đại tiêu thụ nhiều điện năng hơn so với trước đây.",
+        tip: "Danh từ của consume là 'consumption' (sự tiêu thụ).",
+        hint: "Động từ dùng hết năng lượng hay tài nguyên"
+      },
+      {
+        unit: 1,
+        word: "culture / diverse",
+        pos: "noun / adjective",
+        phonetic: "/ˈkʌltʃər/ - /daɪˈvɜːs/",
+        meaningVi: "văn hóa / đa dạng",
+        meaningEn: "Way of life / including many different kinds.",
+        collocation: "diverse background / cultural diversity",
+        example: "The metropolis is home to people from diverse cultures.",
+        exampleVi: "Đô thị lớn là nơi sinh sống của những người đến từ nhiều nền văn hóa đa dạng.",
+        tip: "Cụm 'cultural diversity' rất hay gặp trong Reading & Writing.",
+        hint: "Nền văn hóa phong phú, nhiều thành phần"
+      },
+      {
+        unit: 1,
+        word: "environment",
+        pos: "noun",
+        phonetic: "/ɪnˈvaɪrənmənt/",
+        meaningVi: "môi trường sống và làm việc",
+        meaningEn: "The natural world or conditions in which people live.",
+        collocation: "protect the environment / living environment",
+        example: "A clean environment plays a vital role in human health.",
+        exampleVi: "Một môi trường sạch đóng vai trò thiết yếu đối với sức khỏe con người.",
+        tip: "Chú ý phát âm 4 âm tiết: /ɪnˈvaɪrənmənt/.",
+        hint: "Thế giới tự nhiên bao quanh chúng ta"
+      },
+      {
+        unit: 1,
+        word: "impact / influence",
+        pos: "noun / verb",
+        phonetic: "/ˈɪmpækt/ - /ˈɪnfluəns/",
+        meaningVi: "tác động / ảnh hưởng",
+        meaningEn: "The power to affect a situation or person.",
+        collocation: "have an impact / influence ON something",
+        example: "Urbanization has a major impact on local wildlife habitats.",
+        exampleVi: "Đô thị hóa có tác động lớn đến môi trường sống của động vật hoang dã địa phương.",
+        tip: "Cả hai danh từ này khi đi với đối tượng tác động đều chọn giới từ 'ON'.",
+        hint: "Sức ảnh hưởng tác động lên đối tượng"
+      },
+      {
+        unit: 1,
+        word: "income",
+        pos: "noun",
+        phonetic: "/ˈɪnkʌm/",
+        meaningVi: "thu nhập, tiền kiếm được",
+        meaningEn: "The money received regularly for work or investments.",
+        collocation: "high / low income / generate income",
+        example: "Tourism generates a steady income for local residents.",
+        exampleVi: "Du lịch tạo ra nguồn thu nhập ổn định cho người dân địa phương.",
+        tip: "Cụm 'high-income groups' chỉ nhóm người thu nhập cao.",
+        hint: "Khoản tiền lương hay tiền lời kiếm được"
+      },
+      {
+        unit: 1,
+        word: "nutrition",
+        pos: "noun",
+        phonetic: "/njuˈtrɪʃn/",
+        meaningVi: "dinh dưỡng, chế độ ăn uống",
+        meaningEn: "The process of taking in and using food.",
+        collocation: "good nutrition / source of nutrition",
+        example: "Balanced nutrition is essential for growing children.",
+        exampleVi: "Dinh dưỡng cân bằng là thiết yếu cho trẻ em đang phát triển.",
+        tip: "Tính từ là 'nutritious' (bổ dưỡng).",
+        hint: "Chất dinh dưỡng từ thức ăn"
+      },
+      {
+        unit: 1,
+        word: "outcome",
+        pos: "noun",
+        phonetic: "/ˈaʊtkʌm/",
+        meaningVi: "kết quả cuối cùng",
+        meaningEn: "The final result of a process or event.",
+        collocation: "final outcome / predict the outcome",
+        example: "The outcome of the study will be published next month.",
+        exampleVi: "Kết quả của bài nghiên cứu sẽ được xuất bản vào tháng tới.",
+        tip: "Đồng nghĩa với 'result', dùng để làm đa dạng từ vựng.",
+        hint: "Kết quả thu được sau một quá trình"
+      },
+      {
+        unit: 1,
+        word: "rank",
+        pos: "verb",
+        phonetic: "/ræŋk/",
+        meaningVi: "xếp hạng, đứng thứ bậc",
+        meaningEn: "To give or have a particular position on a scale.",
+        collocation: "rank first / high / be ranked among",
+        example: "Vietnam ranks among the top rice exporters globally.",
+        exampleVi: "Việt Nam xếp vào hàng ngũ các nước xuất khẩu gạo hàng đầu thế giới.",
+        tip: "Rất quan trọng trong IELTS Writing Task 1 miêu tả biểu đồ.",
+        hint: "Vị trí trong danh sách thứ hạng"
+      },
+      {
+        unit: 1,
+        word: "resources",
+        pos: "noun (plural)",
+        phonetic: "/rɪˈsɔːsɪz/",
+        meaningVi: "tài nguyên, nguồn lực",
+        meaningEn: "A supply of materials, money, or staff that can be used.",
+        collocation: "natural resources / financial resources",
+        example: "The country needs to manage its water resources efficiently.",
+        exampleVi: "Đất nước cần quản lý tài nguyên nước một cách hiệu quả.",
+        tip: "Thường dùng ở dạng số nhiều 'resources'.",
+        hint: "Nguồn tài nguyên thiên nhiên hoặc tiền vốn"
+      },
+      {
+        unit: 1,
+        word: "status",
+        pos: "noun",
+        phonetic: "/ˈsteɪtəs/",
+        meaningVi: "địa vị xã hội, vị thế",
+        meaningEn: "Social or professional position relative to others.",
+        collocation: "social status / marital status",
+        example: "Higher education often leads to higher social status.",
+        exampleVi: "Giáo dục bậc cao thường dẫn đến địa vị xã hội cao hơn.",
+        tip: "Thường đi với 'social status' (địa vị xã hội).",
+        hint: "Vị thế của một người trong cộng đồng"
       },
       {
         unit: 1,
@@ -564,52 +707,117 @@
         phonetic: "/səˈraʊnd/",
         meaningVi: "bao quanh, vây quanh",
         meaningEn: "To be all around something or someone.",
-        collocation: "be surrounded BY mountains/trees",
-        example: "My quiet village is surrounded by green paddy fields.",
-        exampleVi: "Ngôi làng yên bình của tôi được bao quanh bởi những cánh đồng lúa xanh ngát.",
-        tip: "Trong Speaking Part 1 khi tả quê hương: Hãy dùng thể bị động 'My hometown is surrounded by...'.",
-        hint: "Bao bọc tứ phía, thường dùng bị động BY"
+        collocation: "be surrounded BY nature / trees / mountains",
+        example: "The resort is surrounded by lush tropical forests.",
+        exampleVi: "Khu nghỉ dưỡng được bao quanh bởi những khu rừng nhiệt đới tươi tốt.",
+        tip: "Dùng dạng bị động 'be surrounded by' trong Speaking Part 1.",
+        hint: "Tứ phía đều có vật gì đó vây quanh"
       },
 
-      // UNIT 2
-      {
-        unit: 2,
-        word: "ancient",
-        pos: "adjective",
-        phonetic: "/ˈeɪnʃənt/",
-        meaningVi: "cổ xưa, từ thời xa xưa",
-        meaningEn: "From a very long time ago in history.",
-        collocation: "ancient history / ancient buildings",
-        example: "Hoi An is famous for its ancient buildings and peaceful streets.",
-        exampleVi: "Hội An nổi tiếng với các công trình kiến trúc cổ kính và những con phố yên bình.",
-        tip: "Dùng thay thế từ very old khi miêu tả di tích hoặc lịch sử trong Speaking Part 1.",
-        hint: "Tính từ chỉ thời kỳ cổ đại, rất xưa"
-      },
+      // UNIT 2: PEOPLE'S LIVES (24 TỪ)
       {
         unit: 2,
         word: "account",
         pos: "noun",
         phonetic: "/əˈkaʊnt/",
-        meaningVi: "bản tường thuật, lời kể lại",
-        meaningEn: "A written or spoken description of something that has happened.",
-        collocation: "give an account of / detailed account",
-        example: "Marco Polo wrote a detailed account of his journey across Asia.",
-        exampleVi: "Marco Polo đã viết một bản tường thuật chi tiết về hành trình của ông qua châu Á.",
-        tip: "Đi kèm giới từ 'of' (an account of sth). Tránh nhầm với tài khoản cá nhân.",
-        hint: "Danh từ mang nghĩa bản tường thuật hoặc câu chuyện kể lại"
+        meaningVi: "bài tường thuật, lời kể chi tiết",
+        meaningEn: "A written or spoken description of an event.",
+        collocation: "give a detailed account of something",
+        example: "The book gives a fascinating account of his travels across Asia.",
+        exampleVi: "Cuốn sách đưa ra lời kể hấp dẫn về các chuyến đi của ông khắp châu Á.",
+        tip: "Cụm 'an account of sth' = lời mô tả chi tiết sự việc.",
+        hint: "Bài viết hoặc câu chuyện thuật lại sự kiện"
       },
       {
         unit: 2,
-        word: "award",
-        pos: "verb / noun",
-        phonetic: "/əˈwɔːd/",
-        meaningVi: "trao thưởng, giải thưởng",
-        meaningEn: "To officially give someone something such as a prize or money.",
-        collocation: "be awarded a prize / award a scholarship",
-        example: "She was awarded a prestigious medal for her scientific achievements.",
-        exampleVi: "Cô ấy đã được trao một tấm huy chương danh giá vì những thành tựu khoa học.",
-        tip: "Hay dùng ở thể bị động: S + be awarded + Noun trong Speaking Part 2.",
-        hint: "Động từ trao giải thưởng chính thức"
+        word: "ancient",
+        pos: "adjective",
+        phonetic: "/ˈeɪnʃənt/",
+        meaningVi: "cổ xưa, lâu đời",
+        meaningEn: "Belonging to a period of history a very long time ago.",
+        collocation: "ancient civilization / building / history",
+        example: "Archaeologists discovered the remains of an ancient city.",
+        exampleVi: "Các nhà khảo cổ đã phát hiện ra tàn tích của một thành phố cổ đại.",
+        tip: "Dùng thay cho 'very old' để tăng band điểm Speaking/Writing.",
+        hint: "Thuộc về thời kỳ lịch sử xa xưa"
+      },
+      {
+        unit: 2,
+        word: "expedition / voyage",
+        pos: "noun",
+        phonetic: "/ˌekspəˈdɪʃn/ - /ˈvɔɪɪdʒ/",
+        meaningVi: "cuộc thám hiểm / chuyến đi biển xa",
+        meaningEn: "An organized journey for exploration / a long journey by sea.",
+        collocation: "go on an expedition / long ocean voyage",
+        example: "The team set off on an expedition to the North Pole.",
+        exampleVi: "Đội ngũ đã khởi hành trong một cuộc thám hiểm đến Bắc Cực.",
+        tip: "'Expedition' là thám hiểm đất liền/băng tuyết, 'Voyage' là thám hiểm bằng tàu biển.",
+        hint: "Chuyến hành trình khám phá vùng đất mới"
+      },
+      {
+        unit: 2,
+        word: "compass",
+        pos: "noun",
+        phonetic: "/ˈkʌmpəs/",
+        meaningVi: "la bàn xác định phương hướng",
+        meaningEn: "An instrument for finding direction with a magnetic needle.",
+        collocation: "use a compass to navigate",
+        example: "Early sailors relied on a compass and stars to find their direction.",
+        exampleVi: "Các thủy thủ thời xưa dựa vào la bàn và các vì sao để tìm hướng đi.",
+        tip: "Dụng cụ quan trọng của các nhà hải hành cổ đại.",
+        hint: "Dụng cụ có kim từ tính chỉ hướng Bắc"
+      },
+      {
+        unit: 2,
+        word: "seafarer",
+        pos: "noun",
+        phonetic: "/ˈsiːfeərə(r)/",
+        meaningVi: "thủy thủ, người đi biển",
+        meaningEn: "A person who travels by sea or works on a ship.",
+        collocation: "experienced seafarer",
+        example: "Ancient seafarers faced many dangers during long sea journeys.",
+        exampleVi: "Những người đi biển thời xưa phải đối mặt với nhiều nguy hiểm trong chuyến đi dài.",
+        tip: "Từ vựng nâng cao thay thế cho 'sailor'.",
+        hint: "Người làm việc hoặc di chuyển trên biển"
+      },
+      {
+        unit: 2,
+        word: "preserve",
+        pos: "verb",
+        phonetic: "/prɪˈzɜːv/",
+        meaningVi: "bảo tồn, giữ gìn",
+        meaningEn: "To keep something in its original state or in good condition.",
+        collocation: "preserve culture / tradition / environment",
+        example: "Steps must be taken to preserve historical monuments.",
+        exampleVi: "Cần thực hiện các biện pháp để bảo tồn các di tích lịch sử.",
+        tip: "Rất hay gặp trong chủ đề Culture & Heritage.",
+        hint: "Giữ gìn không để bị hư hỏng hay mai một"
+      },
+      {
+        unit: 2,
+        word: "traditional",
+        pos: "adjective",
+        phonetic: "/trəˈdɪʃənl/",
+        meaningVi: "thuộc về truyền thống",
+        meaningEn: "Following or belonging to the customs of a group.",
+        collocation: "traditional craft / costume / custom",
+        example: "Local people still maintain their traditional lifestyle.",
+        exampleVi: "Người dân địa phương vẫn duy trì lối sống truyền thống của họ.",
+        tip: "Danh từ là 'tradition' (truyền thống).",
+        hint: "Mang tính thói quen, phong tục lâu đời"
+      },
+      {
+        unit: 2,
+        word: "benefit",
+        pos: "noun / verb",
+        phonetic: "/ˈbenɪfɪt/",
+        meaningVi: "lợi ích / mang lại lợi ích cho",
+        meaningEn: "An advantage or profit gained from something.",
+        collocation: "benefit from something / major benefit",
+        example: "Exercise brings huge benefits to physical health.",
+        exampleVi: "Tập thể dục mang lại lợi ích to lớn cho sức khỏe thể chất.",
+        tip: "Động từ đi với giới từ FROM: 'benefit from sth'.",
+        hint: "Ưu điểm hoặc điều tốt thu nhận được"
       },
       {
         unit: 2,
@@ -617,25 +825,38 @@
         pos: "verb",
         phonetic: "/kəmˈbaɪn/",
         meaningVi: "kết hợp",
-        meaningEn: "To join or mix two or more things together.",
+        meaningEn: "To join two or more things together.",
         collocation: "combine A with B",
-        example: "It is often difficult to combine a full-time job with family life.",
-        exampleVi: "Thường rất khó để kết hợp công việc toàn thời gian với đời sống gia đình.",
-        tip: "Bắt buộc đi kèm giới từ with (combine something with something).",
-        hint: "Động từ phối hợp hoặc trộn lẫn nhiều thứ"
+        example: "Successful learning requires combining theory with practical skills.",
+        exampleVi: "Việc học thành công đòi hỏi sự kết hợp lý thuyết với kỹ năng thực hành.",
+        tip: "Cấu trúc bắt buộc: combine A WITH B.",
+        hint: "Trộn lẫn hoặc phối hợp nhiều yếu tố"
       },
       {
         unit: 2,
-        word: "commentary",
+        word: "community",
         pos: "noun",
-        phonetic: "/ˈkɒməntri/",
-        meaningVi: "lời bình luận, tường thuật trực tiếp",
-        meaningEn: "A spoken description of an event on television or radio as it happens.",
-        collocation: "sports commentary / live commentary",
-        example: "We listened to the live commentary of the football match on the radio.",
-        exampleVi: "Chúng tôi lắng nghe phần bình luận trực tiếp trận bóng đá qua đài radio.",
-        tip: "Trọng âm rơi vào âm tiết đầu tiên (/ˈkɒməntri/).",
-        hint: "Danh từ chỉ bài bình luận trực tiếp thể thao hoặc sự kiện"
+        phonetic: "/kəˈmjuːnəti/",
+        meaningVi: "cộng đồng cư dân",
+        meaningEn: "A group of people living in the same place or having a particular characteristic.",
+        collocation: "local community / sense of community",
+        example: "The new project aims to support the local community.",
+        exampleVi: "Dự án mới nhằm mục đích hỗ trợ cộng đồng địa phương.",
+        tip: "'Sense of community' = tinh thần gắn kết cộng đồng.",
+        hint: "Tập thể những người sống chung một khu vực"
+      },
+      {
+        unit: 2,
+        word: "context",
+        pos: "noun",
+        phonetic: "/ˈkɒntekst/",
+        meaningVi: "bối cảnh, hoàn cảnh",
+        meaningEn: "The situation within which something exists or happens.",
+        collocation: "in the context of / historical context",
+        example: "Words should be learned in their full context rather than individually.",
+        exampleVi: "Từ vựng nên được học trong bối cảnh đầy đủ thay vì học riêng lẻ.",
+        tip: "Cụm 'in the context of' = trong bối cảnh của.",
+        hint: "Hoàn cảnh xung quanh sự việc"
       },
       {
         unit: 2,
@@ -644,140 +865,196 @@
         phonetic: "/dɪˈɡriː/",
         meaningVi: "bằng cấp đại học",
         meaningEn: "A qualification given for completing a university course.",
-        collocation: "university degree / hold a degree in",
-        example: "Having a university degree helps graduates secure well-paid jobs.",
-        exampleVi: "Có tấm bằng đại học giúp sinh viên tốt nghiệp có được công việc lương tốt.",
-        tip: "Dùng giới từ in khi nói về chuyên ngành: a degree in computer science.",
-        hint: "Bằng cấp tốt nghiệp đại học hoặc cao đẳng"
+        collocation: "hold a university degree in...",
+        example: "She gained a degree in law before starting her business.",
+        exampleVi: "Cô ấy có bằng đại học ngành luật trước khi bắt đầu kinh doanh.",
+        tip: "Dùng giới từ 'in' cho ngành học: degree in Law/Medicine.",
+        hint: "Chứng chỉ tốt nghiệp bậc đại học"
       },
       {
         unit: 2,
         word: "establish",
         pos: "verb",
         phonetic: "/ɪˈstæblɪʃ/",
-        meaningVi: "thiết lập, thành lập",
-        meaningEn: "To start or create an organization, system, or relationship.",
-        collocation: "establish a relationship / establish a school",
-        example: "The university was established in 1950 and has a great reputation.",
-        exampleVi: "Trường đại học được thành lập vào năm 1950 và có uy tín lớn.",
-        tip: "Dùng thay thế cho cụm từ đơn giản set up trong bài viết Writing Task 2.",
-        hint: "Động từ đồng nghĩa với thành lập hoặc tạo dựng"
+        meaningVi: "thành lập, thiết lập",
+        meaningEn: "To start or create an organization or system.",
+        collocation: "establish a company / relationship / rule",
+        example: "The organization was established in 1995 to protect wildlife.",
+        exampleVi: "Tổ chức được thành lập vào năm 1995 để bảo vệ động vật hoang dã.",
+        tip: "Đồng nghĩa với 'set up' nhưng trang trọng hơn.",
+        hint: "Tạo dựng nên một tổ chức hay quy tắc"
       },
       {
         unit: 2,
         word: "eventually",
         pos: "adverb",
         phonetic: "/ɪˈventʃuəli/",
-        meaningVi: "cuối cùng thì, rốt cuộc",
+        meaningVi: "cuối cùng, rốt cuộc",
         meaningEn: "In the end, especially after a long time or a lot of effort.",
-        collocation: "eventually succeed / eventually arrive",
-        example: "They got lost on the trail but eventually found their campsite.",
-        exampleVi: "Họ bị lạc trên đường mòn nhưng cuối cùng cũng tìm thấy khu cắm trại.",
-        tip: "Dùng thay cho finally hoặc in the end để tăng tính mạch lạc cho Speaking Part 2.",
-        hint: "Trạng từ chỉ kết quả sau một thời gian dài"
+        collocation: "eventually succeed / arrive",
+        example: "After months of training, he eventually finished the marathon.",
+        exampleVi: "Sau nhiều tháng tập luyện, cuối cùng anh ấy cũng hoàn thành đường chạy marathon.",
+        tip: "Trạng từ chuyển đoạn tự nhiên trong Speaking Part 2.",
+        hint: "Kết quả thu được sau nhiều nỗ lực"
       },
       {
         unit: 2,
-        word: "expedition",
+        word: "experiment",
         pos: "noun",
-        phonetic: "/ˌekspəˈdɪʃn/",
-        meaningVi: "cuộc thám hiểm",
-        meaningEn: "An organized journey made for a particular purpose such as exploration.",
-        collocation: "go on an expedition / lead an expedition",
-        example: "The scientist led an expedition to Antarctica to study penguins.",
-        exampleVi: "Nhà khoa học đã dẫn đầu một đoàn thám hiểm đến Nam Cực để nghiên cứu chim cánh cụt.",
-        tip: "Luôn đi kèm với cụm động từ go on an expedition.",
-        hint: "Chuyến đi thám hiểm có tổ chức và mục đích"
+        phonetic: "/ɪkˈsperɪmənt/",
+        meaningVi: "thí nghiệm, cuộc thử nghiệm",
+        meaningEn: "A scientific procedure undertaken to make a discovery.",
+        collocation: "carry out / do an experiment",
+        example: "Students carried out an experiment in the chemistry lab.",
+        exampleVi: "Học sinh đã tiến hành một thí nghiệm trong phòng hóa học.",
+        tip: "Động từ đi kèm: 'conduct / carry out an experiment'.",
+        hint: "Cuộc thử nghiệm khoa học"
       },
       {
         unit: 2,
         word: "extensive",
         pos: "adjective",
         phonetic: "/ɪkˈstensɪv/",
-        meaningVi: "sâu rộng, bao quát, lớn",
-        meaningEn: "Covering a large area or having a great amount of knowledge/detail.",
-        collocation: "extensive knowledge / extensive research",
-        example: "He has extensive knowledge of foreign cultures from his travels.",
-        exampleVi: "Anh ấy có vốn hiểu biết sâu rộng về các nền văn hóa nước ngoài nhờ các chuyến đi.",
-        tip: "Cụm extensive knowledge/research là collocation band điểm cao cho chủ đề Education.",
-        hint: "Tính từ chỉ quy mô lớn hoặc kiến thức sâu rộng"
+        meaningVi: "rộng lớn, sâu rộng",
+        meaningEn: "Covering a large area or having a great amount of detail.",
+        collocation: "extensive knowledge / research / coverage",
+        example: "The professor has extensive knowledge of world history.",
+        exampleVi: "Giáo sư có kiến thức sâu rộng về lịch sử thế giới.",
+        tip: "Cụm 'extensive knowledge' rất đắt giá trong Speaking/Writing.",
+        hint: "Tính từ chỉ quy mô hay kiến thức bao quát"
       },
       {
         unit: 2,
         word: "formal education",
         pos: "noun phrase",
         phonetic: "/ˈfɔːml ˌedʒuˈkeɪʃn/",
-        meaningVi: "giáo dục chính quy tại trường lớp",
-        meaningEn: "Education that occurs in an organized school, college, or university setting.",
-        collocation: "receive formal education / lack of formal education",
-        example: "Many inventors succeeded even though they lacked formal education.",
-        exampleVi: "Nhiều nhà sáng chế đã thành công dù họ thiếu đi sự giáo dục chính quy.",
-        tip: "Chủ đề Education trong Writing Task 2 rất hay dùng để so sánh với tự học.",
-        hint: "Việc học tập tại trường lớp chính thức"
+        meaningVi: "giáo dục chính quy (ở trường lớp)",
+        meaningEn: "Education in an organized school, college, or university.",
+        collocation: "receive / lack formal education",
+        example: "Some successful inventors never received any formal education.",
+        exampleVi: "Một số nhà sáng chế thành công chưa từng nhận sự giáo dục chính quy nào.",
+        tip: "Phân biệt với 'informal learning' (tự học ngoài đời).",
+        hint: "Việc học tập bài bản tại trường lớp"
       },
       {
         unit: 2,
-        word: "interrupt",
+        word: "generation",
+        pos: "noun",
+        phonetic: "/ˌdʒenəˈreɪʃn/",
+        meaningVi: "thế hệ",
+        meaningEn: "All of the people born and living at about the same time.",
+        collocation: "future / younger generation / generation gap",
+        example: "We must save resources for future generations.",
+        exampleVi: "Chúng ta phải tiết kiệm tài nguyên cho các thế hệ tương lai.",
+        tip: "Cụm 'generation gap' chỉ khoảng cách thế hệ.",
+        hint: "Tập hợp những người cùng độ tuổi trong lịch sử"
+      },
+      {
+        unit: 2,
+        word: "individual",
+        pos: "adjective / noun",
+        phonetic: "/ˌɪndɪˈvɪdʒuəl/",
+        meaningVi: "cá nhân, riêng biệt",
+        meaningEn: "Single; separate; a single human being.",
+        collocation: "individual needs / respect individuals",
+        example: "Teachers should adapt their methods to meet individual needs.",
+        exampleVi: "Giáo viên nên điều chỉnh phương pháp để đáp ứng nhu cầu cá nhân.",
+        tip: "Vừa là danh từ (mỗi cá nhân) vừa là tính từ (riêng lẻ).",
+        hint: "Mỗi con người riêng biệt"
+      },
+      {
+        unit: 2,
+        word: "memorise",
         pos: "verb",
-        phonetic: "/ˌɪntəˈrʌpt/",
-        meaningVi: "làm gián đoạn, ngắt lời",
-        meaningEn: "To stop someone speaking or stop an action for a short period.",
-        collocation: "interrupt someone / interrupt a conversation",
-        example: "It is rude to interrupt others while they are giving opinions.",
-        exampleVi: "Thật thô lỗ khi ngắt lời người khác khi họ đang phát biểu ý kiến.",
-        tip: "Là ngoại động từ dùng trực tiếp với tân ngữ: interrupt somebody (không dùng interrupt to sb).",
-        hint: "Hành động xen vào cắt ngang lời người khác"
+        phonetic: "/ˈmeməraɪz/",
+        meaningVi: "ghi nhớ chính xác, học thuộc",
+        meaningEn: "To learn something so that you can remember it perfectly.",
+        collocation: "memorise vocabulary / facts",
+        example: "Instead of memorising rules, students should focus on application.",
+        exampleVi: "Thay vì học thuộc lòng quy tắc, học sinh nên tập trung vào ứng dụng.",
+        tip: "Tránh 'memorise blindly' (học thuộc lòng vẹt).",
+        hint: "Đưa thông tin vào trí nhớ để thuộc"
+      },
+      {
+        unit: 2,
+        word: "prove",
+        pos: "verb",
+        phonetic: "/pruːv/",
+        meaningVi: "chứng minh, tỏ ra",
+        meaningEn: "To show that something is true by providing evidence.",
+        collocation: "prove a theory / prove to be effective",
+        example: "The new teaching method proved to be highly effective.",
+        exampleVi: "Phương pháp dạy học mới đã tỏ ra cực kỳ hiệu quả.",
+        tip: "Danh từ là 'proof' (bằng chứng).",
+        hint: "Đưa ra bằng chứng thể hiện sự thật"
       },
       {
         unit: 2,
         word: "regard as",
         pos: "phrasal verb",
         phonetic: "/rɪˈɡɑːd æz/",
-        meaningVi: "xem như, coi như là",
-        meaningEn: "To think of or consider someone or something in a particular way.",
-        collocation: "be regarded as / regard somebody as",
-        example: "Ha Long Bay is widely regarded as a natural wonder of the world.",
-        exampleVi: "Vịnh Hạ Long được nhiều người coi là một kỳ quan thiên nhiên của thế giới.",
-        tip: "Thường dùng dạng bị động be regarded as để giới thiệu nhận định khách quan trong Writing Task 2.",
-        hint: "Cụm động từ mang nghĩa đánh giá hoặc coi là"
+        meaningVi: "coi như, xem như là",
+        meaningEn: "To consider someone or something in a specified way.",
+        collocation: "be regarded as something",
+        example: "Marco Polo is regarded as one of history's greatest explorers.",
+        exampleVi: "Marco Polo được xem như là một trong những nhà thám hiểm vĩ đại nhất lịch sử.",
+        tip: "Dạng bị động 'be regarded as' cực kỳ phổ biến trong Task 2.",
+        hint: "Đánh giá hoặc coi là"
       },
       {
         unit: 2,
-        word: "skill",
+        word: "skill / technique",
         pos: "noun",
-        phonetic: "/skɪl/",
-        meaningVi: "kỹ năng",
-        meaningEn: "The ability to do an activity or job well, especially because you have practiced it.",
-        collocation: "develop skills / practical skills",
-        example: "Teamwork is an essential skill that students must develop.",
-        exampleVi: "Làm việc nhóm là một kỹ năng thiết yếu mà học sinh cần phát triển.",
-        tip: "Là danh từ đếm được, thường xuất hiện ở số nhiều skills.",
-        hint: "Khả năng làm việc thành thạo nhờ rèn luyện"
+        phonetic: "/skɪl/ - /tekˈniːk/",
+        meaningVi: "kỹ năng / kỹ thuật, phương pháp",
+        meaningEn: "Ability to do something well / particular way of doing something.",
+        collocation: "develop skills / teaching technique",
+        example: "Practical skills are as important as academic qualification.",
+        exampleVi: "Kỹ năng thực hành cũng quan trọng như bằng cấp học thuật.",
+        tip: "Phân biệt 'skill' (khả năng rèn luyện) và 'technique' (phương pháp cụ thể).",
+        hint: "Khả năng hay phương pháp làm việc"
+      },
+      {
+        unit: 2,
+        word: "support",
+        pos: "noun / verb",
+        phonetic: "/səˈpɔːt/",
+        meaningVi: "hỗ trợ, giúp đỡ",
+        meaningEn: "To give help, encouragement, or financial aid.",
+        collocation: "financial / emotional support / support a family",
+        example: "Many parents provide financial support to their children during university.",
+        exampleVi: "Nhiều cha mẹ cung cấp sự hỗ trợ tài chính cho con cái trong thời gian học đại học.",
+        tip: "Có thể vừa làm động từ vừa làm danh từ.",
+        hint: "Sự giúp đỡ về tinh thần hoặc vật chất"
       }
     ];
 
-    // CỤM TỪ NỐI (MATCHING) KÈM NHÃN UNIT
+    // CỤM TỪ NỐI (MATCHING) - 16 CỤM TỪ
     const ALL_MATCH_DATA = [
-      // UNIT 1
-      { id: 1, unit: 1, word: "impact", target: "on the environment (tác động lên...)" },
+      // UNIT 1 (8 CỤM)
+      { id: 1, unit: 1, word: "impact", target: "on the environment (tác động lên môi trường)" },
       { id: 2, unit: 1, word: "commit a", target: "crime (phạm tội)" },
-      { id: 3, unit: 1, word: "surrounded", target: "by green trees (được bao quanh bởi...)" },
-      { id: 4, unit: 1, word: "healthy", target: "lifestyle (lối sống lành mạnh)" },
-      { id: 5, unit: 1, word: "friendly", target: "locals (người dân bản xứ thân thiện)" },
+      { id: 3, unit: 1, word: "surrounded", target: "by green trees (được bao quanh bởi cây xanh)" },
+      { id: 4, unit: 1, word: "relaxed", target: "lifestyle (lối sống thư thái)" },
+      { id: 5, unit: 1, word: "friendly", target: "inhabitants (cư dân thân thiện)" },
       { id: 6, unit: 1, word: "in", target: "conclusion (kết luận lại là...)" },
+      { id: 7, unit: 1, word: "conduct", target: "research on energy (tiến hành nghiên cứu)" },
+      { id: 8, unit: 1, word: "generate", target: "steady income (tạo nguồn thu nhập)" },
 
-      // UNIT 2
-      { id: 7, unit: 2, word: "regard as", target: "one of the greatest explorers (coi như là...)" },
-      { id: 8, unit: 2, word: "go on an", target: "expedition (tham gia cuộc thám hiểm)" },
-      { id: 9, unit: 2, word: "extensive", target: "knowledge of history (kiến thức sâu rộng)" },
-      { id: 10, unit: 2, word: "combine", target: "theory with practice (kết hợp lý thuyết với...)" },
-      { id: 11, unit: 2, word: "formal", target: "education in school (giáo dục chính quy)" },
-      { id: 12, unit: 2, word: "university", target: "degree in economics (bằng đại học)" }
+      // UNIT 2 (8 CỤM)
+      { id: 9, unit: 2, word: "regard as", target: "one of the greatest explorers (coi như là...)" },
+      { id: 10, unit: 2, word: "go on an", target: "expedition (tham gia cuộc thám hiểm)" },
+      { id: 11, unit: 2, word: "extensive", target: "knowledge of history (kiến thức sâu rộng)" },
+      { id: 12, unit: 2, word: "combine", target: "theory with practice (kết hợp lý thuyết...)" },
+      { id: 13, unit: 2, word: "formal", target: "education in school (giáo dục chính quy)" },
+      { id: 14, unit: 2, word: "university", target: "degree in law (bằng đại học)" },
+      { id: 15, unit: 2, word: "preserve", target: "historical monuments (bảo tồn di tích)" },
+      { id: 16, unit: 2, word: "future", target: "generations (các thế hệ tương lai)" }
     ];
 
-    // CÂU HỎI TRẮC NGHIỆM ĐỤC LỖ KÈM NHÃN UNIT
+    // CÂU HỎI TRẮC NGHIỆM ĐỤC LỖ - 24 CÂU HỎI
     const ALL_QUIZ_QUESTIONS = [
-      // UNIT 1
+      // UNIT 1 (12 CÂU)
       {
         unit: 1,
         category: "Preposition / Giới từ",
@@ -790,11 +1067,11 @@
       {
         unit: 1,
         category: "Collocation / Cụm từ",
-        sentence: "Police are trying their best to reduce _______ in the inner city.",
-        translation: "Cảnh sát đang cố gắng hết sức để giảm thiểu tội phạm ở khu vực nội thành.",
+        sentence: "Police are trying their best to reduce the _______ rate in the inner city.",
+        translation: "Cảnh sát đang cố gắng hết sức để giảm tỷ lệ tội phạm ở khu vực nội thành.",
         options: ["lifestyle", "crime", "reaction", "locals"],
         correct: 1,
-        explanation: "'Reduce crime' (giảm thiểu tội phạm) là cụm kết hợp từ tự nhiên và chuẩn xác trong chủ đề xã hội."
+        explanation: "'Crime rate' (tỷ lệ tội phạm) là cụm danh từ chuẩn xác trong chủ đề xã hội."
       },
       {
         unit: 1,
@@ -803,13 +1080,13 @@
         translation: "Họ xây một khu công nghiệp mới gần bờ sông, tạo việc làm cho công nhân.",
         options: ["industry", "industrial", "industrialize", "industriously"],
         correct: 1,
-        explanation: "Trước danh từ 'zone' ta cần một TÍNH TỪ để bổ nghĩa. 'Industrial' là tính từ (thuộc về công nghiệp)."
+        explanation: "Trước danh từ 'zone' ta cần một TÍNH TỪ để bổ nghĩa. 'Industrial' là tính từ (thuộc công nghiệp)."
       },
       {
         unit: 1,
         category: "Preposition / Bị động",
-        sentence: "The old castle is completely surrounded _______ tall pine trees.",
-        translation: "Tòa lâu đài cổ hoàn toàn được bao quanh bởi những rặng thông cao vút.",
+        sentence: "The resort is completely surrounded _______ lush tropical forests.",
+        translation: "Khu nghỉ dưỡng hoàn toàn được bao quanh bởi những khu rừng nhiệt đới tươi tốt.",
         options: ["by", "to", "at", "of"],
         correct: 0,
         explanation: "Cấu trúc bị động chuẩn xác là 'be surrounded BY something' (được bao quanh bởi cái gì)."
@@ -817,20 +1094,20 @@
       {
         unit: 1,
         category: "Collocation / Lối nói tự nhiên",
-        sentence: "The _______ were very warm and showed us the quickest way to the market.",
-        translation: "Người dân địa phương rất nồng nhiệt và chỉ cho chúng tôi đường nhanh nhất ra chợ.",
-        options: ["ranks", "locals", "lifestyles", "reputations"],
+        sentence: "The local village is famous for its friendly _______.",
+        translation: "Ngôi làng địa phương nổi tiếng với những cư dân thân thiện.",
+        options: ["ranks", "inhabitants", "lifestyles", "reputations"],
         correct: 1,
-        explanation: "'The locals' là danh từ số nhiều tự nhiên mang nghĩa 'người dân bản địa'."
+        explanation: "'Inhabitants' là danh từ chỉ cư dân sinh sống tại một địa phương."
       },
       {
         unit: 1,
-        category: "Preposition / Giới từ",
-        sentence: "His angry _______ to the teacher's comment surprised everybody in class.",
-        translation: "Phản ứng giận dữ của anh ấy trước lời nhận xét của giáo viên khiến cả lớp ngạc nhiên.",
-        options: ["reaction to", "reaction with", "reaction for", "reaction in"],
+        category: "Collocation / Nghiên cứu",
+        sentence: "Scientists are conducting _______ on renewable energy sources.",
+        translation: "Các nhà khoa học đang tiến hành nghiên cứu về các nguồn năng lượng tái tạo.",
+        options: ["research", "crime", "status", "income"],
         correct: 0,
-        explanation: "Danh từ 'reaction' luôn đi cùng giới từ 'TO' khi nói về phản ứng đối với một sự việc nào đó."
+        explanation: "'Conduct research' là động từ đi kèm mang tính trang trọng chỉ việc nghiên cứu."
       },
       {
         unit: 1,
@@ -839,25 +1116,25 @@
         translation: "Tóm lại, chính phủ cần có những biện pháp quyết liệt hơn để bảo vệ rừng.",
         options: ["At", "For", "In", "With"],
         correct: 2,
-        explanation: "Cụm từ liên kết chuyển đoạn chuẩn trong kết bài IELTS là 'In conclusion,' (không dùng At/With)."
+        explanation: "Cụm từ liên kết chuyển đoạn chuẩn trong kết bài IELTS là 'In conclusion,'."
       },
       {
         unit: 1,
         category: "Meaning in Context",
-        sentence: "Eating more vegetables and walking daily will help you lead a healthier _______.",
-        translation: "Ăn nhiều rau xanh và đi bộ mỗi ngày sẽ giúp bạn có một lối sống lành mạnh hơn.",
-        options: ["reputation", "crime", "lifestyle", "impact"],
-        correct: 2,
-        explanation: "'Lead a healthy lifestyle' có nghĩa là duy trì một phong cách/lối sống lành mạnh."
+        sentence: "Coastal towns offer a _______ lifestyle away from big city stress.",
+        translation: "Các thành phố ven biển mang lại lối sống thư thái tránh xa áp lực đô thị.",
+        options: ["relaxed", "crowded", "industrial", "formal"],
+        correct: 0,
+        explanation: "'Relaxed lifestyle' miêu tả một nhịp sống thoải mái, thư thái."
       },
       {
         unit: 1,
         category: "Collocation / Danh tiếng",
-        sentence: "The restaurant gained a great _______ for serving delicious seafood.",
-        translation: "Nhà hàng đã tạo dựng được tiếng tăm lớn nhờ phục vụ đồ hải sản tươi ngon.",
+        sentence: "The university has an international _______ for medical research.",
+        translation: "Trường đại học có danh tiếng quốc tế về nghiên cứu y học.",
         options: ["reputation", "influence", "conclude", "ranks"],
         correct: 0,
-        explanation: "'Gain a reputation for...' mang nghĩa tạo dựng được tiếng tăm, uy tín về một khía cạnh nào đó."
+        explanation: "'Have a reputation for...' mang nghĩa có uy tín, danh tiếng về điều gì."
       },
       {
         unit: 1,
@@ -866,15 +1143,33 @@
         translation: "Theo biểu đồ, cà phê xếp thứ hai trong số các mặt hàng xuất khẩu chính của đất nước.",
         options: ["ranks", "concludes", "surrounds", "influences"],
         correct: 0,
-        explanation: "'Rank second / rank first' được dùng để miêu tả vị trí thứ bậc trong bảng xếp hạng hoặc số liệu."
+        explanation: "'Rank second / rank first' được dùng để miêu tả vị trí thứ bậc trong bảng xếp hạng."
+      },
+      {
+        unit: 1,
+        category: "Collocation / Thu nhập",
+        sentence: "Tourism generates a steady _______ for local residents.",
+        translation: "Du lịch tạo ra nguồn thu nhập ổn định cho người dân địa phương.",
+        options: ["income", "outcome", "status", "access"],
+        correct: 0,
+        explanation: "'Generate income' là cụm từ chỉ việc tạo ra nguồn thu nhập."
+      },
+      {
+        unit: 1,
+        category: "Preposition / Tiếp cận",
+        sentence: "People living in cities usually have better access _______ modern hospitals.",
+        translation: "Người dân sống ở thành phố thường tiếp cận tốt hơn với các bệnh viện hiện đại.",
+        options: ["to", "with", "at", "for"],
+        correct: 0,
+        explanation: "Danh từ 'access' luôn đi cùng giới từ 'TO' (have access to something)."
       },
 
-      // UNIT 2
+      // UNIT 2 (12 CÂU)
       {
         unit: 2,
         category: "Collocation / Nhận định",
-        sentence: "Many historians _______ him as one of the greatest explorers of the 14th century.",
-        translation: "Nhiều nhà sử học coi ông như một trong những nhà thám hiểm vĩ đại nhất thế kỷ 14.",
+        sentence: "Many historians _______ him as one of the greatest explorers.",
+        translation: "Nhiều nhà sử học coi ông như một trong những nhà thám hiểm vĩ đại nhất.",
         options: ["regard", "consider", "believe", "comment"],
         correct: 0,
         explanation: "Cấu trúc 'regard someone as something' mang nghĩa xem ai đó như là cái gì."
@@ -891,8 +1186,8 @@
       {
         unit: 2,
         category: "Collocation / Kiến thức",
-        sentence: "Our lecturer has _______ knowledge of ancient languages and traditions.",
-        translation: "Giảng viên của chúng tôi có kiến thức sâu rộng về các ngôn ngữ và truyền thống cổ xưa.",
+        sentence: "Our lecturer has _______ knowledge of ancient languages.",
+        translation: "Giảng viên của chúng tôi có kiến thức sâu rộng về các ngôn ngữ cổ xưa.",
         options: ["ancient", "formal", "extensive", "eventual"],
         correct: 2,
         explanation: "Cụm 'extensive knowledge' mang nghĩa kiến thức sâu rộng, bao quát."
@@ -900,26 +1195,26 @@
       {
         unit: 2,
         category: "Collocation / Giáo dục",
-        sentence: "He became a successful software creator despite having no _______ education.",
-        translation: "Anh ấy đã trở thành một người làm phần mềm thành công dù không có học vấn chính quy.",
+        sentence: "He became a successful programmer despite having no _______ education.",
+        translation: "Anh ấy đã trở thành lập trình viên thành công dù không có học vấn chính quy.",
         options: ["formal", "ancient", "commentary", "interrupted"],
         correct: 0,
         explanation: "'Formal education' chỉ nền giáo dục trường lớp bài bản, chính quy."
       },
       {
         unit: 2,
-        category: "Meaning in Context / Hành động",
-        sentence: "It is considered impolite to _______ the teacher while she is explaining the grammar.",
-        translation: "Bị coi là bất lịch sự nếu ngắt lời giáo viên khi cô đang giải thích ngữ pháp.",
-        options: ["combine", "interrupt", "award", "establish"],
-        correct: 1,
-        explanation: "'Interrupt' là động từ chỉ hành động chen ngang, ngắt lời người khác."
+        category: "Meaning in Context / Bảo tồn",
+        sentence: "Steps must be taken to _______ historical monuments for future generations.",
+        translation: "Cần thực hiện các biện pháp để bảo tồn các di tích lịch sử cho các thế hệ tương lai.",
+        options: ["preserve", "combine", "interrupt", "establish"],
+        correct: 0,
+        explanation: "'Preserve' là động từ giữ gìn, bảo tồn di sản hoặc di tích."
       },
       {
         unit: 2,
         category: "Adverb / Tính mạch lạc",
-        sentence: "After walking for three hours under the rain, they _______ reached the ancient temple.",
-        translation: "Sau khi đi bộ ba tiếng đồng hồ dưới mưa, cuối cùng họ cũng đến được ngôi đền cổ.",
+        sentence: "After months of training, he _______ finished the marathon.",
+        translation: "Sau nhiều tháng tập luyện, cuối cùng anh ấy cũng hoàn thành đường chạy marathon.",
         options: ["anciently", "extensively", "eventually", "formally"],
         correct: 2,
         explanation: "'Eventually' là trạng từ mang nghĩa rốt cuộc, cuối cùng thì (sau nhiều nỗ lực)."
@@ -927,8 +1222,8 @@
       {
         unit: 2,
         category: "Preposition / Giới từ",
-        sentence: "Students should learn how to combine academic study _______ regular physical exercise.",
-        translation: "Học sinh nên học cách kết hợp việc học thuật với rèn luyện thể chất thường xuyên.",
+        sentence: "Successful learning requires combining theory _______ practical skills.",
+        translation: "Việc học thành công đòi hỏi sự kết hợp lý thuyết với kỹ năng thực hành.",
         options: ["with", "for", "to", "on"],
         correct: 0,
         explanation: "Động từ 'combine' luôn đi cùng giới từ 'with' (combine A with B)."
@@ -936,8 +1231,8 @@
       {
         unit: 2,
         category: "Word Form / Bị động",
-        sentence: "The young scientist was _______ a prestigious scholarship for her excellent research.",
-        translation: "Nhà khoa học trẻ đã được trao một học bổng danh giá cho nghiên cứu xuất sắc của cô.",
+        sentence: "The young scientist was _______ a prestigious award for her research.",
+        translation: "Nhà khoa học trẻ đã được trao một giải thưởng danh giá cho nghiên cứu của cô.",
         options: ["awarding", "awarded", "awards", "award"],
         correct: 1,
         explanation: "Dạng bị động trong quá khứ đơn: 'was awarded' (được trao thưởng)."
@@ -945,44 +1240,62 @@
       {
         unit: 2,
         category: "Meaning in Context / Tường thuật",
-        sentence: "The old explorer gave a fascinating _______ of his life among desert tribes.",
-        translation: "Nhà thám hiểm già đã đưa ra một lời kể hấp dẫn về cuộc đời ông giữa các bộ tộc sa mạc.",
+        sentence: "The book gives a fascinating _______ of his travels across Asia.",
+        translation: "Cuốn sách đưa ra lời kể hấp dẫn về các chuyến đi của ông khắp châu Á.",
         options: ["account", "degree", "skill", "interruption"],
         correct: 0,
-        explanation: "'An account of something' là bản tường thuật, bài viết hoặc câu chuyện kể lại một sự việc."
+        explanation: "'An account of something' là bản tường thuật hay lời kể chi tiết về một sự việc."
       },
       {
         unit: 2,
         category: "Collocation / Bằng cấp",
-        sentence: "Nowadays, having a university _______ in technology provides many job advantages.",
-        translation: "Ngày nay, có bằng đại học ngành công nghệ mang lại nhiều lợi thế xin việc.",
+        sentence: "Nowadays, having a university _______ in law provides many career advantages.",
+        translation: "Ngày nay, có bằng đại học ngành luật mang lại nhiều lợi thế nghề nghiệp.",
         options: ["degree", "commentary", "expedition", "account"],
         correct: 0,
         explanation: "Cụm 'university degree' là bằng cấp tốt nghiệp đại học."
+      },
+      {
+        unit: 2,
+        category: "Meaning in Context / Dụng cụ",
+        sentence: "Early sailors relied on a _______ to find their direction at sea.",
+        translation: "Các thủy thủ thời xưa dựa vào la bàn để tìm hướng đi trên biển.",
+        options: ["compass", "degree", "status", "outcome"],
+        correct: 0,
+        explanation: "'Compass' là la bàn định hướng cho người đi biển."
+      },
+      {
+        unit: 2,
+        category: "Meaning in Context / Người đi biển",
+        sentence: "Ancient _______ faced many dangers during long sea journeys.",
+        translation: "Những người đi biển thời xưa phải đối mặt với nhiều nguy hiểm trong các chuyến đi dài.",
+        options: ["seafarers", "resources", "environments", "outcomes"],
+        correct: 0,
+        explanation: "'Seafarers' là danh từ chỉ những người đi biển hoặc thủy thủ."
       }
     ];
 
-    // DỮ LIỆU ĐIỀN TỪ (GAP-FILL & WORD FORM)
+    // DỮ LIỆU ĐIỀN TỪ (GAP-FILL & WORD FORM) - 16 CÂU
     const ALL_FILL_DATA = [
-      // UNIT 1
+      // UNIT 1 (8 CÂU)
       {
         unit: 1,
-        s: "The new industrial zone had a negative _______ on the local river.",
-        vi: "Khu công nghiệp mới đã có tác động tiêu cực lên dòng sông địa phương.",
+        s: "Urbanization had a negative _______ on local wildlife habitats.",
+        vi: "Đô thị hóa có tác động tiêu cực đến môi trường sống của động vật hoang dã.",
         a: "impact",
         h: "i _ _ _ _ _ (tác động, ảnh hưởng)"
       },
       {
         unit: 1,
-        s: "The local police are working hard to reduce the _______ rate.",
-        vi: "Cảnh sát địa phương đang nỗ lực giảm tỷ lệ tội phạm.",
+        s: "Police are working hard to reduce the local _______ rate.",
+        vi: "Cảnh sát đang nỗ lực giảm tỷ lệ tội phạm địa phương.",
         a: "crime",
         h: "c _ _ _ _ (tội phạm, tệ nạn)"
       },
       {
         unit: 1,
-        s: "Eating organic vegetables helps people maintain a healthy _______.",
-        vi: "Ăn rau hữu cơ giúp mọi người duy trì một lối sống lành mạnh.",
+        s: "Coastal towns offer a relaxed _______ away from big city stress.",
+        vi: "Các thành phố ven biển mang lại lối sống thư thái tránh xa áp lực đô thị.",
         a: "lifestyle",
         h: "l _ _ _ _ _ _ _ _ (lối sống, phong cách sống)"
       },
@@ -1007,35 +1320,49 @@
         a: "conclusion",
         h: "Đổi 'conclude' thành DANH TỪ (cụm In ...)"
       },
+      {
+        unit: 1,
+        s: "Tourism generates a steady _______ for local residents.",
+        vi: "Du lịch tạo ra nguồn thu nhập ổn định cho người dân địa phương.",
+        a: "income",
+        h: "i _ _ _ _ _ (thu nhập, tiền kiếm được)"
+      },
+      {
+        unit: 1,
+        s: "The resort is surrounded _______ lush tropical forests.",
+        vi: "Khu nghỉ dưỡng được bao quanh bởi những khu rừng nhiệt đới tươi tốt.",
+        a: "by",
+        h: "Giới từ đi sau thể bị động surrounded"
+      },
 
-      // UNIT 2
+      // UNIT 2 (8 CÂU)
       {
         unit: 2,
-        s: "Hoi An is internationally famous for its _______ architecture and street lamps.",
-        vi: "Hội An nổi tiếng quốc tế bởi kiến trúc cổ xưa và đèn đường.",
+        s: "Hoi An is internationally famous for its _______ architecture.",
+        vi: "Hội An nổi tiếng quốc tế bởi kiến trúc cổ xưa.",
         a: "ancient",
-        h: "a _ _ _ _ _ _ (cổ xưa, từ thời xa xưa)"
+        h: "a _ _ _ _ _ _ (cổ xưa, lâu đời)"
       },
       {
         unit: 2,
-        s: "The explorer wrote a fascinating _______ of his life among desert tribes.",
-        vi: "Nhà thám hiểm đã viết bản tường thuật hấp dẫn về đời ông giữa các bộ tộc.",
+        s: "The book gives a fascinating _______ of his travels across Asia.",
+        vi: "Cuốn sách đưa ra lời kể hấp dẫn về các chuyến đi của ông khắp châu Á.",
         a: "account",
-        h: "a _ _ _ _ _ _ (bản tường thuật, lời kể lại)"
+        h: "a _ _ _ _ _ _ (bản tường thuật, lời kể)"
       },
       {
         unit: 2,
-        s: "Students find it difficult to _______ part-time work with exam preparation.",
-        vi: "Học sinh thấy khó kết hợp công việc làm thêm với việc ôn thi.",
-        a: "combine",
-        h: "c _ _ _ _ _ _ (kết hợp, đi với with)"
+        s: "Successful learning requires combining theory _______ practical skills.",
+        vi: "Việc học thành công đòi hỏi sự kết hợp lý thuyết với kỹ năng thực hành.",
+        a: "with",
+        h: "Giới từ đi sau 'combine A...'"
       },
       {
         unit: 2,
-        s: "The research university was _______ in 1950 by national scientists.",
-        vi: "Trường đại học nghiên cứu được thành lập vào năm 1950.",
+        s: "The organization was _______ in 1995 to protect wildlife.",
+        vi: "Tổ chức được thành lập vào năm 1995 để bảo vệ động vật hoang dã.",
         a: "established",
-        h: "Dạng bị động quá khứ của 'establish' (được thành lập)"
+        h: "Dạng bị động quá khứ của 'establish'"
       },
       {
         unit: 2,
@@ -1046,57 +1373,103 @@
       },
       {
         unit: 2,
-        s: "Our professor has _______ knowledge of Southeast Asian history.",
-        vi: "Giáo sư của chúng tôi có kiến thức sâu rộng về lịch sử Đông Nam Á.",
+        s: "Our professor has _______ knowledge of world history.",
+        vi: "Giáo sư của chúng tôi có kiến thức sâu rộng về lịch sử thế giới.",
         a: "extensive",
         h: "e _ _ _ _ _ _ _ _ (sâu rộng, bao quát)"
+      },
+      {
+        unit: 2,
+        s: "Steps must be taken to _______ historical monuments.",
+        vi: "Cần thực hiện các biện pháp để bảo tồn các di tích lịch sử.",
+        a: "preserve",
+        h: "p _ _ _ _ _ _ _ (bảo tồn, giữ gìn)"
+      },
+      {
+        unit: 2,
+        s: "Early sailors relied on a magnetic _______ to find direction.",
+        vi: "Các thủy thủ thời xưa dựa vào la bàn từ tính để tìm hướng đi.",
+        a: "compass",
+        h: "c _ _ _ _ _ _ (la bàn)"
       }
     ];
 
-    // DỮ LIỆU SẮP XẾP CÂU (SENTENCE BUILDER)
+    // DỮ LIỆU SẮP XẾP CỤM THÀNH CÂU (SENTENCE BUILDER BY CHUNKS) - 12 CÂU
     const ALL_ORDER_DATA = [
-      // UNIT 1
+      // UNIT 1 (6 CÂU)
       {
         unit: 1,
+        chunks: ["Tourism", "can have", "a negative impact", "on the local environment"],
         s: "Tourism can have a negative impact on the local environment.",
         vi: "Du lịch có thể gây tác động tiêu cực đến môi trường địa phương."
       },
       {
         unit: 1,
-        s: "My peaceful hometown is surrounded by green paddy fields.",
-        vi: "Quê hương yên bình của tôi được bao quanh bởi những cánh đồng lúa xanh."
+        chunks: ["My peaceful village", "is surrounded by", "green paddy fields"],
+        s: "My peaceful village is surrounded by green paddy fields.",
+        vi: "Ngôi làng yên bình của tôi được bao quanh bởi những cánh đồng lúa xanh."
       },
       {
         unit: 1,
-        s: "Friendly locals showed us the quickest way to the market.",
-        vi: "Người dân địa phương thân thiện đã chỉ cho chúng tôi đường nhanh nhất ra chợ."
+        chunks: ["Friendly inhabitants", "showed us", "the quickest way", "to the market"],
+        s: "Friendly inhabitants showed us the quickest way to the market.",
+        vi: "Những cư dân thân thiện đã chỉ cho chúng tôi đường nhanh nhất ra chợ."
       },
       {
         unit: 1,
+        chunks: ["Vietnam ranks", "among the top exporters", "of rice", "in the world"],
         s: "Vietnam ranks among the top exporters of rice in the world.",
         vi: "Việt Nam xếp vào hàng ngũ các nước xuất khẩu gạo hàng đầu thế giới."
       },
+      {
+        unit: 1,
+        chunks: ["Developing fast public transport", "helps cut down on", "air pollution"],
+        s: "Developing fast public transport helps cut down on air pollution.",
+        vi: "Phát triển giao thông công cộng nhanh chóng giúp giảm thiểu ô nhiễm không khí."
+      },
+      {
+        unit: 1,
+        chunks: ["Researchers concluded that", "green spaces", "improve mental health"],
+        s: "Researchers concluded that green spaces improve mental health.",
+        vi: "Các nhà nghiên cứu kết luận rằng không gian xanh giúp cải thiện sức khỏe tinh thần."
+      },
 
-      // UNIT 2
+      // UNIT 2 (6 CÂU)
       {
         unit: 2,
+        chunks: ["Many historians", "regard him as", "one of the greatest explorers"],
         s: "Many historians regard him as one of the greatest explorers.",
         vi: "Nhiều nhà sử học coi ông như một trong những nhà thám hiểm vĩ đại nhất."
       },
       {
         unit: 2,
+        chunks: ["The research team", "decided to go on", "an expedition", "across the ocean"],
         s: "The research team decided to go on an expedition across the ocean.",
         vi: "Nhóm nghiên cứu quyết định tham gia một chuyến thám hiểm qua đại dương."
       },
       {
         unit: 2,
+        chunks: ["Students should learn", "to combine academic study", "with regular exercise"],
         s: "Students should learn to combine academic study with regular exercise.",
         vi: "Học sinh nên học cách kết hợp việc học thuật với rèn luyện thể chất."
       },
       {
         unit: 2,
+        chunks: ["Our professor has", "extensive knowledge of", "ancient languages and traditions"],
         s: "Our professor has extensive knowledge of ancient languages and traditions.",
         vi: "Giáo sư của chúng tôi có kiến thức sâu rộng về ngôn ngữ và truyền thống cổ xưa."
+      },
+      {
+        unit: 2,
+        chunks: ["Steps must be taken", "to preserve historical monuments", "for future generations"],
+        s: "Steps must be taken to preserve historical monuments for future generations.",
+        vi: "Cần thực hiện các biện pháp để bảo tồn các di tích lịch sử cho các thế hệ tương lai."
+      },
+      {
+        unit: 2,
+        chunks: ["Ancient seafarers", "faced many dangers", "during long ocean voyages"],
+        s: "Ancient seafarers faced many dangers during long ocean voyages.",
+        vi: "Những người đi biển thời xưa phải đối mặt với nhiều nguy hiểm trong các chuyến hải trình dài."
       }
     ];
 
@@ -1717,7 +2090,7 @@
     }
 
     // ==========================================
-    // LOGIC SẮP XẾP CÂU (SENTENCE BUILDER)
+    // LOGIC SẮP XẾP CỤM THÀNH CÂU (SENTENCE BUILDER BY CHUNKS)
     // ==========================================
     function filterOrderUnit(unit) {
       currentOrderUnit = unit;
@@ -1740,8 +2113,8 @@
 
     function startOrder() {
       if (orderIdx < filteredOrder.length) {
-        const clean = filteredOrder[orderIdx].s.replace(/\.$/, '');
-        orderTokens = clean.split(' ').sort(() => Math.random() - 0.5);
+        const item = filteredOrder[orderIdx];
+        orderTokens = [...item.chunks].sort(() => Math.random() - 0.5);
       }
       orderPicked = [];
       orderDone = false;
@@ -1754,7 +2127,7 @@
         box.innerHTML = `
           <div class="text-center space-y-3 py-6">
             <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600">${orderScore} / ${filteredOrder.length}</div>
-            <p class="text-xs sm:text-sm text-slate-500">Hoàn thành bài tập sắp xếp câu!</p>
+            <p class="text-xs sm:text-sm text-slate-500">Hoàn thành bài tập sắp xếp cụm từ!</p>
             <button onclick="resetOrder()" class="min-h-[44px] px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs sm:text-sm transition">
               Làm lại
             </button>
@@ -1764,8 +2137,7 @@
       }
 
       const q = filteredOrder[orderIdx];
-      // Nút chọn từ có min-h-[42px] chống bấm nhầm trên màn hình cảm ứng
-      const chip = (i, fn, cls) => `<button onclick="${fn}(${i})" class="${cls} min-h-[42px] px-3 py-2 rounded-xl border-2 text-xs sm:text-sm font-bold transition active:scale-95 shadow-2xs">${orderTokens[i]}</button>`;
+      const chip = (i, fn, cls) => `<button onclick="${fn}(${i})" class="${cls} min-h-[42px] px-3.5 py-2 rounded-xl border-2 text-xs sm:text-sm font-bold transition active:scale-95 shadow-2xs">${orderTokens[i]}</button>`;
 
       box.innerHTML = `
         <div class="flex justify-between items-center text-xs text-slate-500 mb-1">
@@ -1774,13 +2146,13 @@
         </div>
         <p class="text-xs sm:text-sm italic text-slate-600 mb-2.5">(${q.vi})</p>
         
-        <!-- Khung câu được ghép -->
+        <!-- Khung các cụm từ đã chọn ghép thành câu -->
         <div class="min-h-[64px] p-2.5 rounded-2xl border-2 border-dashed border-slate-300 flex flex-wrap items-center gap-2 mb-3 bg-slate-50/50">
           ${orderPicked.map(i => chip(i, 'unpickWord', 'bg-emerald-50 border-emerald-400 text-emerald-900')).join('')}
           <span class="text-slate-400 font-bold text-base select-none">.</span>
         </div>
 
-        <!-- Khung kho từ chưa chọn -->
+        <!-- Kho các cụm từ chưa chọn -->
         <div class="flex flex-wrap gap-2 mb-3.5 min-h-[46px]">
           ${orderTokens.map((_, i) => orderPicked.includes(i) ? '' : chip(i, 'pickWord', 'bg-white border-slate-200 hover:border-blue-400 text-slate-800 shadow-xs')).join('')}
         </div>
@@ -1813,12 +2185,12 @@
       if (orderDone) return;
       const q = filteredOrder[orderIdx];
       if (orderPicked.length < orderTokens.length) {
-        showToast("Hãy chạm chọn hết các từ trước khi kiểm tra.", false);
+        showToast("Hãy chạm chọn hết các cụm từ trước khi kiểm tra.", false);
         return;
       }
 
       orderDone = true;
-      const cleanTarget = q.s.replace(/\.$/, '');
+      const cleanTarget = q.chunks.join(' ');
       const userSentence = orderPicked.map(i => orderTokens[i]).join(' ');
       const ok = userSentence === cleanTarget;
       if (ok) orderScore++;
